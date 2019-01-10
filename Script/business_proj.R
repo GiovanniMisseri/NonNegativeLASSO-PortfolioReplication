@@ -5,6 +5,7 @@ a=colSums(is.na(dldat))
 sum(a!=0)
 dldat=dldat[,a==0]
 
+plot(ts(dldat[,1]))
 
 x=dldat[,-1]
 x=as.matrix(x)
