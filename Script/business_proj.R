@@ -118,157 +118,92 @@ ts_beta <- read_csv("GitHub/NonNegativeLASSO-PortfolioReplication/Data/ts_beta.c
 
 # KALMAN FILTER
 
-x=dldat[1:250,-1]
+
+# New Kalman
+  
+  
+dldat <- read.csv("~/GitHub/NonNegativeLASSO-PortfolioReplication/Data/dldat.csv", row.names=1)
+x=dldat[1:250,c(2,3)]
 x=as.matrix(x)
 y=(dldat[1:250,1])
 
-z = x[,c(7,10)]
 num = length(y)
-A = array(z, dim=c(1 ,2 , num))
-input = matrix (1,num ,1)
+
+
+A = array(1, dim=c(1 ,3 , num))
+
+for (i in 1: num ) {
+  A[1,2:3,i]= x[i,]
+}
+input = rep(1, num )
+mu0 = matrix(0, 3, 1)
+Sigma0 = diag(c(.1 , .1, 1) , 3)
+
+Linn = function ( para ) {
+  Phi = diag (0 ,3)
+  Phi [1 ,1]= para [1]  # beta0
+  Phi [2,2]= para[2]    # beta1
+  Phi [3,3]=para[3]     # beta2
+  cQ1= para [4]         
+  cQ2= para [5] 
+  cQ3= para[6]
+  cQ = diag (0 ,3)
+  cQ [1 ,1]= cQ1
+  cQ [2 ,2]= cQ2
+  cQ [3 ,3]= cQ3
+  cR = para [7] 
+  drift1=para[8]
+  drift2=para[9]
+  drift3=para[10]
+  ups=matrix(0,3,1)
+  ups[1,1]=drift1
+  ups[2,1]=drift2
+  ups[3,1]=drift3
+  kf = Kfilter1(num , y , A, mu0 , Sigma0 , Phi ,Ups = ups,Gam = 0, cQ , cR,input)
+  return (kf$ like )
+}
+
+init.par = c(0.8,.8,.8   ,.1,.1,.1,  .5,  0.1,0.1,0.1  ) 
 
 
 
+est = optim( init.par , Linn ,NULL , method = 'L-BFGS-B', hessian =TRUE)
+SE = sqrt ( diag ( solve ( est $ hessian )))
+u = cbind ( estimate = est $par , SE)
+rownames (u)=c('phi_beta0','phi_beta1','phi_beta2','sig_beta0','sig_beta1','sig_beta2','sig_y','dift0','drift1','drift2')
+u
 
 
 
-#b=array(1,dim=c(2,1))
+Phi = diag (0 ,3)
+Phi [1 ,1]= est$par[1]  # beta0
+Phi [2,2]= est$par[2]    # beta1
+Phi [3,3]=est$par[3]     # beta2
+cQ1= est$par[4]         
+cQ2= est$par [5] 
+cQ3= est$par[6]
+cQ = diag (0 ,3)
+cQ [1 ,1]= cQ1
+cQ [2 ,2]= cQ2
+cQ [3 ,3]= cQ3
+cR = est$par [7] 
+drift1=est$par[8]
+drift2=est$par[9]
+drift3=est$par[10]
+ups=matrix(0,3,1)
+ups[1,1]=drift1
+ups[2,1]=drift2
+ups[3,1]=drift3
+kf = Kfilter1(num , y , A, mu0 , Sigma0 , Phi ,Ups = ups,Gam = 0, cQ , cR,input)
 
 
-#mu0 = array(0,dim=c(2,1))
-#Sigma0 = diag(10,2,2)
-
-#Phi =diag(1,2)
-#Ups = (1- phi )%*%b
-#Gam=0
-#Theta=diag(1,2)
-#cQ=array(1,dim=c(1,2))
-
-#cR=1
-#S=array(0,dim=c(2,1))
-
-
-# Function to Calculate Likelihood
-Linn = function(para, y.data){ # pass data also
-  phi = diag(0,2); phi[1,1]=para[1] ; phi[2,2]=para[2]
-  gam = 0
-  b = array(0,dim=c(2,1)) ; b[1,1]=para[3]; b[2,1]=para[4]
-  Ups = (1- phi )%*%b
-  cQ = array(0,dim=c(1,2)); cQ[1,1]=para[5]; cQ[1,2]=para[6]
-  cR = para[7]
-  kf = Kfilter2(num ,y.data ,A,mu0 , Sigma0 ,phi ,Ups ,gam ,diag(1,2),cQ ,cR ,array(0,dim=c(2,1)), input )
-  return (kf$like )
+res=1:250
+for (i in 1:250){
+  res[i]=A[,,i]%*%kf$xp[,,i]
+  
 }
 
 
 
-require(astsa)
-mu0 = array(0,dim=c(2,1)); Sigma0 = diag(10,2,2)
-# initial values of the parameters
-init.par = c( phi1=.5,phi2=.5 , b1=1 ,b2=1, cQ1=.01,cQ2=.01 , cR1= 0.1)# maximize - loglikelihood
-est = optim( init.par , Linn , NULL , y.data =y, method ="L-BFGS-B",hessian =T,control = list(maxit = 6, temp = 2000, trace = TRUE,
-                                                                                              REPORT = 1) )
-SE = sqrt( diag( solve( est$hessian )))
-
-
-phi = est$par [1]; alpha = est$par[2]
-b = est$par[3]; Ups = (1- phi)*b
-cQ = est$par[4]; cR = est$par[5]
-round ( cbind ( estimate = est$par , SE), 3)
-
-
-
-########################
-
-
-
-
-x=dldat[1:250,-1]
-x=as.matrix(x)
-y=(dldat[1:250,1])
-
-z = x[,c(1,2)]
-num = length(y)
-A = array(z, dim=c(1 ,2 , num))
-input = matrix (1,num ,1)
-b=array(1,dim=c(2,1))
-
-
-mu0 = array(0,dim=c(2,1))
-Sigma0 = diag(10,2,2)
-
-Phi =diag(1,2)
-Ups = (1- phi )%*%b
-Gam=0
-Theta=diag(1,2)
-cQ=array(1,dim=c(1,2))
-
-cR=1
-S=array(0,dim=c(2,1))
-
-
-  
-  
-  Q = t(cQ) %*% cQ
-  R = t(cR) %*% cR
-  Phi = as.matrix(Phi)
-  pdim = nrow(Phi)
-  y = as.matrix(y)
-  qdim = ncol(y)
-  rdim = ncol(as.matrix(input))
-  if (max(abs(Ups)) == 0) 
-    Ups = matrix(0, pdim, rdim)
-  if (max(abs(Gam)) == 0) 
-    Gam = matrix(0, qdim, rdim)
-  ut = matrix(input, num, rdim)
-  xp = array(NA, dim = c(pdim, 1, num))
-  Pp = array(NA, dim = c(pdim, pdim, num))
-  xf = array(NA, dim = c(pdim, 1, num))
-  Pf = array(NA, dim = c(pdim, pdim, num))
-  Gain = array(NA, dim = c(pdim, qdim, num))
-  innov = array(NA, dim = c(qdim, 1, num))
-  sig = array(NA, dim = c(qdim, qdim, num))
-  like = 0
-  xp[, , 1] = Phi %*% mu0 + Ups %*% as.matrix(ut[1, ], rdim)
-  Pp[, , 1] = Phi %*% Sigma0 %*% t(Phi) + Theta %*% Q %*% 
-    t(Theta)
-  for (i in 1:num) {
-    B = matrix(A[, , i], nrow = qdim, ncol = pdim)
-    innov[, , i] = y[i, ] - B %*% xp[, , i] - Gam %*% as.matrix(ut[i, 
-                                                                   ], rdim)
-    sigma = B %*% Pp[, , i] %*% t(B) + R
-    sigma = (t(sigma) + sigma)/2
-    sig[, , i] = sigma
-    siginv = solve(sigma)
-    Gain[, , i] = (Phi %*% Pp[, , i] %*% t(B) + Theta %*% 
-                     S) %*% siginv
-    K = as.matrix(Gain[, , i], nrow = qdim, ncol = pdim)
-    xf[, , i] = xp[, , i] + Pp[, , i] %*% t(B) %*% siginv %*% 
-      innov[, , i]
-    Pf[, , i] = Pp[, , i] - Pp[, , i] %*% t(B) %*% siginv %*% 
-      B %*% Pp[, , i]
-    sigma = matrix(sigma, nrow = qdim, ncol = qdim)
-    like = like + log(det(sigma)) + t(innov[, , i]) %*% 
-      siginv %*% innov[, , i]
-    if (i == num) 
-      break
-    xp[, , i + 1] = Phi %*% xp[, , i] + Ups %*% as.matrix(ut[i + 
-                                                               1, ], rdim) + K %*% innov[, , i]
-    Pp[, , i + 1] = Phi %*% Pp[, , i] %*% t(Phi) + Theta %*% 
-      Q %*% t(Theta) - K %*% sig[, , i] %*% t(K)
-  }
-  like = 0.5 * like
-  list(xp = xp, Pp = Pp, xf = xf, Pf = Pf, K = Gain, like = like, 
-       innov = innov, sig = sig)
-
-
-
-
-
-
-
-
-
-
-
-
+tsplot(y[200:250])
+lines(res[200:250],col=2)
