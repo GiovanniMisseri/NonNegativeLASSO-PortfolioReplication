@@ -165,7 +165,7 @@ Linn = function ( para ) {
 
 init.par = c(0.8,.8,.8   ,.1,.1,.1,  .5,  0.1,0.1,0.1  ) 
 
-
+require(astsa)
 
 est = optim( init.par , Linn ,NULL , method = 'L-BFGS-B', hessian =TRUE)
 SE = sqrt ( diag ( solve ( est $ hessian )))
@@ -207,6 +207,115 @@ for (i in 1:250){
 
 tsplot(y[200:250])
 lines(res[200:250],col=2)
+
+
+
+
+
+# Kalman extension more regressors
+
+
+library(glmnet)
+
+
+dldat <- read.csv("~/GitHub/NonNegativeLASSO-PortfolioReplication/Data/dldat.csv", row.names=1)
+a=colSums(is.na(dldat))
+sum(a!=0)
+dldat=dldat[,a==0]
+
+x=dldat[,-1]
+x=as.matrix(x)
+y=dldat[,1]
+mod=cv.glmnet(x[559:808,] ,y[559:808],lower.limits=0 )
+m=coef(mod,s = 0.001)
+
+index=m@i+1
+mask=(m[,1]>0)
+
+
+num_reg=sum(mask)
+
+x=dldat[559:808,mask]
+x=x[,c(2:num_reg)]
+x=as.matrix(x)
+y=(dldat[559:808,1])
+
+num = length(y)
+
+
+A = array(1, dim=c(1 ,num_reg , num))
+
+for (i in 1: num ) {
+  A[1,2:num_reg,i]= x[i,]
+}
+input = rep(1, num )
+mu0 = matrix(0, num_reg, 1)
+Sigma0 = diag(0.1 , num_reg)
+Sigma0[num_reg,num_reg]=1
+
+
+Linn = function ( para ) {
+  Phi = diag (0 ,num_reg)
+  for (i in 1:num_reg){
+    Phi[i,i]=para[i]
+  }
+  
+  cQ = diag (0 ,num_reg)
+  for (i in 1:num_reg){
+    cQ[i,i]=para[i+num_reg]
+  }
+  cR = para [num_reg*2+1] 
+  
+  ups=matrix(0,num_reg,1)
+  for (i in 1:num_reg){
+    ups[i,1]=para[num_reg*2+1+i]
+  }
+  
+  kf = Kfilter1(num , y , A, mu0 , Sigma0 , Phi ,Ups = ups,Gam = 0, cQ , cR,input)
+  return ((kf$ like )/100)
+}
+
+
+init.par = c(rep(0.7,num_reg)   ,rep(0.1,num_reg),  .5,  rep(0.1,num_reg)  )
+
+require(astsa)
+
+est = optim( init.par , Linn ,NULL , method = 'L-BFGS-B', hessian =TRUE,control = list(trace=1,REPORT=10))
+
+SE = sqrt ( diag ( solve ( est $ hessian )))
+u = cbind ( estimate = est $par , SE)
+
+
+Phi = diag (0 ,num_reg)
+for (i in 1:num_reg){
+  Phi[i,i]=est$par[i]
+}
+
+cQ = diag (0 ,num_reg)
+for (i in 1:num_reg){
+  cQ[i,i]=est$par[i+num_reg]
+}
+cR = est$par [num_reg*2+1] 
+
+ups=matrix(0,num_reg,1)
+for (i in 1:num_reg){
+  ups[i,1]=est$par[num_reg*2+1+i]
+}
+kf = Kfilter1(num , y , A, mu0 , Sigma0 , Phi ,Ups = ups,Gam = 0, cQ , cR,input)
+
+
+res=1:250
+for (i in 1:250){
+  res[i]=A[,,i]%*%kf$xp[,,i]
+  
+}
+
+
+
+tsplot(y[200:250])
+lines(res[200:250],col=2)
+
+
 
 
 
@@ -302,5 +411,5 @@ for (i in 1:250){
 lines(y[200:250])
 tsplot(res[200:250],col=2)
 
-write.csv(est$par,"param.csv")
+write.csv(est$par,"param1.csv")
 
