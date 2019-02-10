@@ -119,7 +119,7 @@ ts_beta <- read_csv("GitHub/NonNegativeLASSO-PortfolioReplication/Data/ts_beta.c
 # KALMAN FILTER
 
 
-# New Kalman
+# New Kalman y ~ 2 series
   
   
 dldat <- read.csv("~/GitHub/NonNegativeLASSO-PortfolioReplication/Data/dldat.csv", row.names=1)
@@ -207,3 +207,100 @@ for (i in 1:250){
 
 tsplot(y[200:250])
 lines(res[200:250],col=2)
+
+
+
+# Kalman filter all Lasso-positive series
+
+
+
+library(readr)
+ts_beta <- read_csv("GitHub/NonNegativeLASSO-PortfolioReplication/Data/ts_beta.csv")
+ts_beta=ts_beta[,-1]
+t558=(ts_beta[,558])
+
+
+
+mask=(t558[,1]>0)
+dldat <- read.csv("~/GitHub/NonNegativeLASSO-PortfolioReplication/Data/dldat.csv", row.names=1)
+a=colSums(is.na(dldat))
+sum(a!=0)
+dldat=dldat[,a==0]
+
+x=dldat[559:808,mask]
+x=as.matrix(x)
+y=(dldat[559:808,1])
+
+num = length(y)
+
+
+A = array(1, dim=c(1 ,48 , num))
+
+for (i in 1: num ) {
+  A[1,2:48,i]= x[i,]
+}
+
+input = rep(1, num )
+mu0 = matrix(0, 48, 1) #put last available value later
+Sigma0 = diag(c(.1 , .1, 1) , 48)
+
+
+
+Linn = function ( para ) {
+  Phi = diag (0 ,48)
+  for (i in 1:48){
+    Phi[i,i]=para[i]
+  }
+  
+  cQ = diag (0 ,48)
+  for (i in 1:48){
+    cQ[i,i]=para[i+48]
+  }
+  cR = para [97] 
+  
+  ups=matrix(0,48,1)
+  for (i in 1:48){
+    ups[i,1]=para[97+i]
+  }
+  
+  kf = Kfilter1(num , y , A, mu0 , Sigma0 , Phi ,Ups = ups,Gam = 0, cQ , cR,input)
+  return (kf$ like )
+}
+
+init.par = c(rep(0.8,48)   ,rep(0.1,48),  .5,  rep(0.1,48)  ) 
+est = optim( init.par , Linn ,NULL , method = 'L-BFGS-B', hessian =TRUE)
+
+SE = sqrt ( diag ( solve ( est $ hessian )))
+u = cbind ( estimate = est $par , SE)
+
+
+Phi = diag (0 ,48)
+for (i in 1:48){
+  Phi[i,i]=est$par[i]
+}
+
+cQ = diag (0 ,48)
+for (i in 1:48){
+  cQ[i,i]=est$par[i+48]
+}
+cR = est$par [97] 
+
+ups=matrix(0,48,1)
+for (i in 1:48){
+  ups[i,1]=est$par[97+i]
+}
+kf = Kfilter1(num , y , A, mu0 , Sigma0 , Phi ,Ups = ups,Gam = 0, cQ , cR,input)
+
+res=1:250
+for (i in 1:250){
+  res[i]=A[,,i]%*%kf$xp[,,i]
+  
+}
+
+
+
+lines(y[200:250])
+tsplot(res[200:250],col=2)
+
+write.csv(est$par,"param.csv")
+
