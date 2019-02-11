@@ -1,17 +1,24 @@
 # see https://web.stanford.edu/~hastie/glmnet/glmnet_alpha.html to learn more
-dldat <- read.csv("~/GitHub/NonNegativeLASSO-PortfolioReplication/Data/dldat.csv", row.names=1)
 require(glmnet)
+
+
+
+
+dldat <- read.csv("~/GitHub/NonNegativeLASSO-PortfolioReplication/Data/dldat.csv", row.names=1)
 a=colSums(is.na(dldat))
 sum(a!=0)
 dldat=dldat[,a==0]
-
 plot(ts(dldat[,1]))
-
 x=dldat[,-1]
 x=as.matrix(x)
 y=(dldat[,1])
 
 
+##    Lasso Portfolio replication   ##
+
+
+
+#example on first window
 mod=cv.glmnet(x[1:250,] ,y[1:250],lower.limits=0 )
 
 plot(mod)
@@ -19,18 +26,11 @@ plot(glmnet(x ,y,lower.limits=0 ),xvar="lambda")
 
 sum(coef(mod,s=0.001)==0)
 sum(coef(mod,s=0.001)!=0)
-dim(coef(mod,s=0.001))
 
 
 
-#R^2
-r2=mod$glmnet.fit$dev.ratio[which(mod$glmnet.fit$lambda >= 0.001)][length(mod$glmnet.fit$dev.ratio[which(mod$glmnet.fit$lambda >= 0.001)])]
-
-1-mod$cvm/var(y)
 
 beta_time=matrix(NA,494,558)
-mod$lambda[mod$lambda>=0.001][length(mod$lambda[mod$lambda>=0.001])]
-
 
 
 # Predict Y_n ~ X_n
@@ -45,22 +45,86 @@ for( i in 1:558){
 
 }
 
-sum(abs(beta_time[,1]-beta_time[,2]))/494
+# mean absolute change
 
-quantile(beta_time[,1],probs =0.91)
-qq=1:557
-for (i in 1:553){
+mean_abs=1:250
+for (j in 1:250){
+  
+  step=j
+  qq=1:(558-step)
+  for (i in 1:(558-step)){ 
+    qq[i]=sum((beta_time[,i]-beta_time[,(i+step)]))/length(beta_time[,i])
+    
+  }
+  
+  mean_abs[j]=mean(abs(qq))
+
+}
+
+plot(mean_abs)
+#write.csv(beta_time,"ts_beta.csv")
+
+
+
+##  OLS ##
+# import ts_beta
+library(readr)
+ts_beta <- read_csv("GitHub/NonNegativeLASSO-PortfolioReplication/Data/ts_beta.csv")
+
+ts_beta=ts_beta[,-1]
+
+
+mask=ts_beta[,1]>0
+mask=mask[-1]
+x=as.matrix(x)
+dat=cbind(y[1:250],x[1:250,mask])
+dat=as.data.frame(dat)
+mod=lm(V1~. ,data = dat )
+summary(mod)
+
+tsplot(y[200:250],lwd=1)
+co=mod$coefficients
+lines(cbind(rep(1,length(200:250)),x[200:250,mask])%*%co,col=2,lwd=1)
+pred_ols=cbind(rep(1,length(200:250)),x[200:250,mask])%*%co
+
+co=as.matrix(ts_beta[c(TRUE,mask),1])
+lines(cbind(rep(1,length(200:250)),x[200:250,mask])%*%co,col=4)
+pred_lasso=cbind(rep(1,length(200:250)),x[200:250,mask])%*%co
+
+
+mean((y[200:250]-pred_ols)^2)
+
+R2=matrix(NA,nrow = 558,ncol = 2)
+
+
+i=1
+for (i in 1:558){
+  mask=ts_beta[,i]>0
+  mask=mask[-1]
+  x=as.matrix(x)
+  dat=cbind(y[i:(i+249)],x[i:(i+249),mask])
+  dat=as.data.frame(dat)
+  mod=lm(V1~. ,data = dat )
+
+  co=mod$coefficients
+  pred_ols=cbind(rep(1,250),x[i:(i+249),mask])%*%co
+  
+  co=as.matrix(ts_beta[c(TRUE,mask),1])
+  pred_lasso=cbind(rep(1,250),x[i:(i+249),mask])%*%co
   
   
-  qq[i]=sum(abs(beta_time[beta_time[,i],i]-beta_time[beta_time[,i],i+5]))/length(beta_time[,i])
+  R2[i,1]=1-mean((y[i:(i+249)]-pred_ols)^2)
+  R2[i,2]=1-mean((y[i:(i+249)]-pred_lasso)^2)
+  
+  
   
 }
 
-mean(qq)
-sum(abs(beta_time[beta_time[,1]<0,1]-beta_time[beta_time[,1]<0,2]))/449
+sum(R2[,2]>R2[,1])
 
 
-#write.csv(beta_time,"ts_beta.csv")
+
+###############
 
 #Predict Y_n+1 ~ X_n
 
@@ -160,21 +224,28 @@ Linn = function ( para ) {
   ups[2,1]=drift2
   ups[3,1]=drift3
   kf = Kfilter1(num , y , A, mu0 , Sigma0 , Phi ,Ups = ups,Gam = 0, cQ , cR,input)
-  return (kf$ like )
+  return (kf$ like/100 )
 }
 
 init.par = c(0.8,.8,.8   ,.1,.1,.1,  .5,  0.1,0.1,0.1  ) 
 
 require(astsa)
+require(tictoc)
 
-est = optim( init.par , Linn ,NULL , method = 'L-BFGS-B', hessian =TRUE)
+tic("optim")
+est = optim( init.par , Linn ,NULL , method = 'L-BFGS-B', hessian =T)
+toc()
+
+tic("nlminb")
+est1= nlminb(init.par,Linn,control = list(trace=5))
+toc()
 SE = sqrt ( diag ( solve ( est $ hessian )))
 u = cbind ( estimate = est $par , SE)
 rownames (u)=c('phi_beta0','phi_beta1','phi_beta2','sig_beta0','sig_beta1','sig_beta2','sig_y','dift0','drift1','drift2')
 u
 
 
-
+est=est1
 Phi = diag (0 ,3)
 Phi [1 ,1]= est$par[1]  # beta0
 Phi [2,2]= est$par[2]    # beta1
@@ -272,16 +343,20 @@ Linn = function ( para ) {
   }
   
   kf = Kfilter1(num , y , A, mu0 , Sigma0 , Phi ,Ups = ups,Gam = 0, cQ , cR,input)
-  return ((kf$ like )/100)
+  return ((kf$ like )/100 + (0.01*sum(para[2:num_reg]))/100 )
 }
 
 
-init.par = c(rep(0.7,num_reg)   ,rep(0.1,num_reg),  .5,  rep(0.1,num_reg)  )
+init.par = c(rep(0.75,num_reg)   ,rep(0.1,num_reg),  .5,  rep(0.1,num_reg)  )
 
+
+Linn(init.par)
 require(astsa)
 
-est = optim( init.par , Linn ,NULL , method = 'L-BFGS-B', hessian =TRUE,control = list(trace=1,REPORT=10))
-
+#est = optim( init.par , Linn ,NULL , method = 'L-BFGS-B', hessian =TRUE,control = list(trace=1,REPORT=10))
+tic("nlminb")
+est=nlminb(init.par,Linn,control = list(trace=10))
+toc()
 SE = sqrt ( diag ( solve ( est $ hessian )))
 u = cbind ( estimate = est $par , SE)
 
@@ -316,7 +391,7 @@ tsplot(y[200:250])
 lines(res[200:250],col=2)
 
 
-
+est$par
 
 
 # Kalman filter all Lasso-positive series
