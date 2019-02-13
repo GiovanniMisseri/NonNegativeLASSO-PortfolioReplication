@@ -82,6 +82,9 @@ dat=as.data.frame(dat)
 mod=lm(V1~. ,data = dat )
 summary(mod)
 
+
+
+
 tsplot(y[200:250],lwd=1)
 co=mod$coefficients
 lines(cbind(rep(1,length(200:250)),x[200:250,mask])%*%co,col=2,lwd=1)
@@ -121,6 +124,83 @@ for (i in 1:558){
 }
 
 sum(R2[,2]>R2[,1])
+
+
+
+
+
+## Non negative OLS
+
+
+
+
+require(glmnet)
+
+
+
+
+dldat <- read.csv("~/GitHub/NonNegativeLASSO-PortfolioReplication/Data/dldat.csv", row.names=1)
+a=colSums(is.na(dldat))
+sum(a!=0)
+dldat=dldat[,a==0]
+plot(ts(dldat[,1]))
+x=dldat[,-1]
+x=as.matrix(x)
+y=(dldat[,1])
+
+
+require(nnls)
+library(readr)
+require(astsa)
+ts_beta <- read_csv("GitHub/NonNegativeLASSO-PortfolioReplication/Data/ts_beta.csv")
+
+ts_beta=ts_beta[,-1]
+
+
+mask=ts_beta[,1]>0
+mask=mask[-1]
+x=as.matrix(x)
+
+mod=nnls(x[1:250,mask],y[1:250])
+
+tsplot(y[200:250],lwd=1)
+lines(mod$fitted[200:250],col=2,lwd=1)
+pred_ols=mod$fitted[200:250]
+
+co=as.matrix(ts_beta[c(TRUE,mask),1])
+lines(cbind(rep(1,length(200:250)),x[200:250,mask])%*%co,col=4)
+pred_lasso=cbind(rep(1,length(200:250)),x[200:250,mask])%*%co
+
+
+mean((y[200:250]-pred_ols)^2)
+
+R2=matrix(NA,nrow = 558,ncol = 2)
+
+
+i=1
+for (i in 1:558){
+  mask=ts_beta[,i]>0
+  mask=mask[-1]
+  x=as.matrix(x)
+  mod=nnls(x[i:(i+249),mask],y[i:(i+249)])
+  
+  pred_ols=mod$fitted
+  
+  co=as.matrix(ts_beta[c(TRUE,mask),i])
+  pred_lasso=cbind(rep(1,250),x[i:(i+249),mask])%*%co
+  
+  
+  R2[i,1]=1-mean((y[i:(i+249)]-pred_ols)^2)/var(y[i:(i+249)])
+  R2[i,2]=1-mean((y[i:(i+249)]-pred_lasso)^2)/var(y[i:(i+249)])
+  
+  
+  
+}
+
+sum(R2[,2]>R2[,1])
+
+
+
 
 
 
