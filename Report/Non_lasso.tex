@@ -41,6 +41,43 @@ Empirically is often the case passive approach outperforms active approach, also
 \newpage
 \section{Non negative LASSO}
 
+If we have a feature or some mesurements of an interesting phenomenon, is often the case that, given some related variables, we try to explain the phenomenon as a function of the related variables. The use of linear model, in case of linear relation between phenomenon and variables, is a good choise for two reasons: it gives good prediction and on the other hand, given the linear relation, it's highly intrpretable. 
+
+In general the more correlated variables we have, the "better" the model will be; but sometimes the presence of too much independent variables conditions the prediction error and also the presence of an high number of predictors limits the interpretability of the model. For these reasons one could decide to add a regularization term to its minimum least square problem.
+
+\[
+\min_{\beta_0 , \beta} \frac{1}{N} \sum_{i=1}^N (y_i-\beta_0 - \sum_{j=1}^p x_{ij}\beta_j)^2 + \lambda\sum_{j=1}^p |\beta_j |^q 
+\]
+
+Where $|\beta|^p$ is the $p$-norm of $\beta$.
+\\
+
+If in the regularized minimization problem we choose norm-two we obtain the ridge regression, if we choose the norm-one we obtain LASSO regression. 
+
+
+It's easy to proove that shrinkage methods also solve an other tipe of problem related to ordinary least square. With OLS indeed the solution of the minimization problem is $ \beta_{ols}=(X^TX)^{-1}X^Ty$, decomposing $X$ through SVD, $X=V\Sigma U^T$, we get $\beta_{ols}=U\Sigma^{-1}V^Ty$. From this we can easly see that if $\Sigma$ is not invertible $\beta_{ols}$ could not be found.
+\\
+
+Shrinkage methods deal with this problem. Ridge regression ends up giving $\beta_{ridge}=U(\Sigma^2+\lambda I)^{-1} \Sigma V^T y$. Lasso regression's beta cannot be written in an explicit form, but the non-invertibility problem is solved due to the fact that, fixed $\lambda$, at the optimum, some beta will be equal to zero. Intuitivelly this is due to the feasible solutions space shape; indeed LASSO regression can be written as the following minimization problem.
+\[ \min_{\beta} \sum_{i=1}^N ( y_i -\beta_0 -\sum_{j=1}^p x_{ij} \beta_j)^2 ~~subject~to~\sum_{j=1}^p |\beta_j| \leq t
+\]
+
+
+\includegraphics[scale=0.75]{lasso}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \section{Portfolio replication}
 
 
