@@ -175,7 +175,7 @@ pred_lasso=cbind(rep(1,length(200:250)),x[200:250,mask])%*%co
 mean((y[200:250]-pred_ols)^2)
 
 R2=matrix(NA,nrow = 558,ncol = 2)
-
+Absol=matrix(NA,nrow = 558,ncol = 2)
 
 i=1
 for (i in 1:558){
@@ -189,18 +189,19 @@ for (i in 1:558){
   co=as.matrix(ts_beta[c(TRUE,mask),i])
   pred_lasso=cbind(rep(1,250),x[i:(i+249),mask])%*%co
   
-  
   R2[i,1]=1-mean((y[i:(i+249)]-pred_ols)^2)/var(y[i:(i+249)])
   R2[i,2]=1-mean((y[i:(i+249)]-pred_lasso)^2)/var(y[i:(i+249)])
   
-  
-  
+  a=(abs(y[i:(i+249)]-pred_ols)/abs(y[i:(i+249)]))
+  Absol[i,1]=mean(a[a!="Inf" & a!="NaN"])
+  a=(abs(y[i:(i+249)]-pred_lasso)/abs(y[i:(i+249)]))
+  Absol[i,2]=mean(a[a!="Inf" & a!="NaN"])
 }
 
 sum(R2[,2]>R2[,1])
 
-
-
+a=(abs(y[i:(i+249)]-pred_ols)/abs(y[i:(i+249)]))
+sum(a!="Inf" & a!="NaN")
 
 
 
