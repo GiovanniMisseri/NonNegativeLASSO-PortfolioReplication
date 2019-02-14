@@ -39,7 +39,7 @@ There are mainly two stratgies in portfolio management, active and passive manag
 Empirically is often the case passive approach outperforms active approach, also due to the transaction costs. In this work will try to propose two different solution to pursue respectively the passive and the active approach.
 
 \newpage
-\section{Non negative LASSO}
+\section{Shrinkage Methods}
 
 If we have a feature or some mesurements of an interesting phenomenon, is often the case that, given some related variables, we try to explain the phenomenon as a function of the related variables. The use of linear model, in case of linear relation between phenomenon and variables, is a good choise for two reasons: it gives good prediction and on the other hand, given the linear relation, it's highly intrpretable. 
 
@@ -65,6 +65,16 @@ Shrinkage methods deal with this problem. Ridge regression ends up giving $\beta
 
 \includegraphics[scale=0.75]{lasso}
 
+\subsection{LASSO and Portfolio Replication}
+
+A replicating portfolio for a given asset or series of cash flows is a portfolio of assets with the same properties. So the principal problem of building a good replicating portfolio for a certain financial aggregate index is finding the right componets of the index, the one able to represent the index itself. 
+
+With the problem posed like that, the link between lasso regression and portfolio replication it's evident. Indeed one interesting properties of lasso regression is the variable selection consistency, so using lasso regression we are guaranteed, under certain condition, that it will select an optimal subset of variables in order to explain our dependent variable. It's clear now that lasso could help on the selection of the subset of time series that will be part of the portfolio; so we will select a subset of an index' components  able to explain the index itself.
+\\
+
+Here comes one problem, how to use lasso, a cross-sectional regression method, on a dynamic dataset? We will use a moving window approach, so we will assume that the data inside a window of fixed lenght are time invariant, and we compute lasso on that.
+
+Another problem is the interpretation of the resulting model. Ones we find the solution to the lasso minimization problem, we have the beta related to all the variables, in our case the components of the index. Some beta will be equal to zero 
 
 
 
@@ -78,6 +88,7 @@ Shrinkage methods deal with this problem. Ridge regression ends up giving $\beta
 
 
 
+\newpage
 \section{Portfolio replication}
 
 
