@@ -136,9 +136,6 @@ sum(R2[,2]>R2[,1])
 
 require(glmnet)
 
-
-
-
 dldat <- read.csv("~/GitHub/NonNegativeLASSO-PortfolioReplication/Data/dldat.csv", row.names=1)
 a=colSums(is.na(dldat))
 sum(a!=0)
@@ -161,7 +158,7 @@ mask=ts_beta[,1]>0
 mask=mask[-1]
 x=as.matrix(x)
 
-mod=nnls(x[1:250,mask],y[1:250])
+mod=nnls(cbind(rep(1,250),x[1:250,mask]),y[1:250])
 
 tsplot(y[200:250],lwd=1)
 lines(mod$fitted[200:250],col=2,lwd=1)
@@ -182,15 +179,15 @@ for (i in 1:558){
   mask=ts_beta[,i]>0
   mask=mask[-1]
   x=as.matrix(x)
-  mod=nnls(x[i:(i+249),mask],y[i:(i+249)])
+  mod=nnls(cbind(rep(1,250),x[i:(i+249),mask]),y[i:(i+249)])
   
   pred_ols=mod$fitted
   
   co=as.matrix(ts_beta[c(TRUE,mask),i])
   pred_lasso=cbind(rep(1,250),x[i:(i+249),mask])%*%co
   
-  R2[i,1]=1-mean((y[i:(i+249)]-pred_ols)^2)/var(y[i:(i+249)])
-  R2[i,2]=1-mean((y[i:(i+249)]-pred_lasso)^2)/var(y[i:(i+249)])
+  R2[i,1]=1-sum((y[i:(i+249)]-pred_ols)^2)/sum((y[i:(i+249)]-mean(y[i:(i+249)]))^2)
+  R2[i,2]=1-sum((y[i:(i+249)]-pred_lasso)^2)/sum((y[i:(i+249)]-mean(y[i:(i+249)]))^2)
   
   a=(abs(y[i:(i+249)]-pred_ols)/abs(y[i:(i+249)]))
   Absol[i,1]=mean(a[a!="Inf" & a!="NaN"])
@@ -200,8 +197,48 @@ for (i in 1:558){
 
 sum(R2[,2]>R2[,1])
 
-a=(abs(y[i:(i+249)]-pred_ols)/abs(y[i:(i+249)]))
-sum(a!="Inf" & a!="NaN")
+
+
+
+## Portfolio simulation passive approach ##
+
+require(glmnet)
+
+dldat <- read.csv("~/GitHub/NonNegativeLASSO-PortfolioReplication/Data/dldat.csv", row.names=1)
+a=colSums(is.na(dldat))
+sum(a!=0)
+dldat=dldat[,a==0]
+plot(ts(dldat[,1]))
+x=dldat[,-1]
+x=as.matrix(x)
+y=(dldat[,1])
+
+require(nnls)
+library(readr)
+require(astsa)
+ts_beta <- read_csv("GitHub/NonNegativeLASSO-PortfolioReplication/Data/ts_beta.csv")
+
+ts_beta=ts_beta[,-1]
+
+
+mask=ts_beta[,1]>0
+mask=mask[-1]
+x=as.matrix(x)
+
+mod=nnls(cbind(rep(1,250),x[1:250,mask]),y[1:250])
+
+co=as.matrix(ts_beta[c(TRUE,mask),1])
+pred_lasso=cbind(rep(1,length(1:808)),x[1:808,mask])%*%co
+
+
+require(astsa)
+tsplot(y[451:500])
+lines(pred_lasso[201:250],col=4)
+
+
+exp(sum(pred_lasso[251:808]))
+
+
 
 
 
@@ -359,6 +396,141 @@ for (i in 1:250){
 
 tsplot(y[200:250])
 lines(res[200:250],col=2)
+
+
+
+
+## Portfolio simulation active approach  ##
+library(glmnet)
+
+
+dldat <- read.csv("~/GitHub/NonNegativeLASSO-PortfolioReplication/Data/dldat.csv", row.names=1)
+a=colSums(is.na(dldat))
+sum(a!=0)
+dldat=dldat[,a==0]
+
+x=dldat[,-1]
+x=as.matrix(x)
+y=dldat[,1]
+mod=cv.glmnet(x[1:250,] ,y[1:250],lower.limits=0 )
+m=coef(mod,s = 0.005)
+
+index=m@i+1
+m@Dimnames[[1]][m@i+1]
+
+
+
+
+mask=(m[,1]>0)
+
+
+num_reg=sum(mask)
+
+x=dldat[251:500,mask]
+x=x[,c(2:num_reg)]
+x=as.matrix(x)
+y=(dldat[251:500,1])
+
+num = length(y)
+
+
+A = array(1, dim=c(1 ,num_reg , num))
+
+for (i in 1: num ) {
+  A[1,2:num_reg,i]= x[i,]
+}
+input = rep(1, num )
+mu0 = matrix(0, num_reg, 1)
+Sigma0 = diag(0.1 , num_reg)
+Sigma0[num_reg,num_reg]=1
+
+
+Linn = function ( para ) {
+  Phi = diag (0 ,num_reg)
+  for (i in 1:num_reg){
+    Phi[i,i]=para[i]
+  }
+  
+  cQ = diag (0 ,num_reg)
+  for (i in 1:num_reg){
+    cQ[i,i]=para[i+num_reg]
+  }
+  cR = para [num_reg*2+1] 
+  
+  ups=matrix(0,num_reg,1)
+  for (i in 1:num_reg){
+    ups[i,1]=para[num_reg*2+1+i]
+  }
+  
+  kf = Kfilter1(num , y , A, mu0 , Sigma0 , Phi ,Ups = ups,Gam = 0, cQ , cR,input)
+  return ((kf$ like )/100 + (0.01*sum(para[2:num_reg]))/100 )
+}
+
+
+init.par = c(rep(0.75,num_reg)   ,rep(0.1,num_reg),  .5,  rep(0.1,num_reg)  )
+
+
+Linn(init.par)
+require(astsa)
+require(tictoc)
+
+#est = optim( init.par , Linn ,NULL , method = 'L-BFGS-B', hessian =TRUE,control = list(trace=1,REPORT=10))
+tic("nlminb")
+est=nlminb(init.par,Linn,control = list(trace=10))
+toc()
+
+
+Phi = diag (0 ,num_reg)
+for (i in 1:num_reg){
+  Phi[i,i]=est$par[i]
+}
+
+cQ = diag (0 ,num_reg)
+for (i in 1:num_reg){
+  cQ[i,i]=est$par[i+num_reg]
+}
+cR = est$par [num_reg*2+1] 
+
+ups=matrix(0,num_reg,1)
+for (i in 1:num_reg){
+  ups[i,1]=est$par[num_reg*2+1+i]
+}
+kf = Kfilter1(num , y , A, mu0 , Sigma0 , Phi ,Ups = ups,Gam = 0, cQ , cR,input)
+
+
+res=1:250
+for (i in 1:250){
+  res[i]=A[,,i]%*%kf$xp[,,i]
+  
+}
+
+
+
+tsplot(y[150:250])
+lines(res[150:250],col=2)
+
+
+
+
+t=0
+
+budget=1
+
+exp(res[t+1])*budget # ....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
