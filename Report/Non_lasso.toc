@@ -1,4 +1,5 @@
 \contentsline {section}{\numberline {1}Introduction}{2}
 \contentsline {section}{\numberline {2}Shrinkage Methods}{3}
 \contentsline {subsection}{\numberline {2.1}LASSO and Portfolio Replication}{4}
-\contentsline {section}{\numberline {3}Portfolio replication}{5}
+\contentsline {subsection}{\numberline {2.2}Parameter estimation}{5}
+\contentsline {section}{\numberline {3}Portfolio replication}{6}

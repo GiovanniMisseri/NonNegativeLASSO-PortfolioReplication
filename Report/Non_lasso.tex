@@ -59,9 +59,9 @@ It's easy to proove that shrinkage methods also solve an other tipe of problem r
 \\
 
 Shrinkage methods deal with this problem. Ridge regression ends up giving $\beta_{ridge}=U(\Sigma^2+\lambda I)^{-1} \Sigma V^T y$. Lasso regression's beta cannot be written in an explicit form, but the non-invertibility problem is solved due to the fact that, fixed $\lambda$, at the optimum, some beta will be equal to zero. Intuitivelly this is due to the feasible solutions space shape; indeed LASSO regression can be written as the following minimization problem.
-\[ \min_{\beta} \sum_{i=1}^N ( y_i -\beta_0 -\sum_{j=1}^p x_{ij} \beta_j)^2 ~~subject~to~\sum_{j=1}^p |\beta_j| \leq t
-\]
-
+\begin{equation}
+ \min_{\beta} \sum_{i=1}^N ( y_i -\beta_0 -\sum_{j=1}^p x_{ij} \beta_j)^2 ~~subject~to~\sum_{j=1}^p |\beta_j| \leq t
+\end{equation}
 
 \includegraphics[scale=0.75]{lasso}
 
@@ -74,7 +74,21 @@ With the problem posed like that, the link between lasso regression and portfoli
 
 Here comes one problem, how to use lasso, a cross-sectional regression method, on a dynamic dataset? We will use a moving window approach, so we will assume that the data inside a window of fixed lenght are time invariant, and we compute lasso on that.
 
-Another problem is the interpretation of the resulting model. Ones we find the solution to the lasso minimization problem, we have the beta related to all the variables, in our case the components of the index. Some beta will be equal to zero 
+Another problem is the interpretation of the resulting model. Ones we find the solution to the lasso minimization problem, we have the beta related to all the variables, in our case the components of the index. Some beta will be equal to zero, so they will be excluded by our portfolio, for all the other beta a nice interpretation is available. 
+
+If we carefully think to lasso as it has been defined in $(1)$, we approximate an index, the used one will be $Sp500$, as a function of some of it's components, conditioning to the fact that the sum of the associated beta is less than a given $t$. Practically we will work on the daily log-retuns, and so our response and regressor will be all daily log-return; said that it's easy to see that $t$ can be seen as the initial budget and each beta is the volume of the "suggested" investment in a certain asset. Later on we will exploit this fact to run simulations using the different proposed methods.
+
+For an active approach everithing works fine, a positive beta will be an investment and a negative beta will be a short sell. On the other hand, for passive approach, it could be forbidden or in general doesn't make much sense to use short sell. For this reason to our estimates we need to add the constrain of non-negativity.
+\\
+
+Considering that also elastic net regression has the consistency variable selection, we will try to select the assets both with lasso and elastic net regression. Some comparison will be done on that.
+
+\subsection{Parameter estimation}
+As we said our principal aim is to replicate the $Sp500$ with a relatively low number of assets. To select the rigth one we could use, as explained in the previous paragraph, lasso or elastic net regression; now we have to deal with the parameter estimation.
+
+As we said we suppose, as actually happend due to the fact that our index is just a combination of 500 assets, that $Sp500$ has a linear relation with the selected assets. A first and natural choise for the $\beta$ of the model are the one obtained by the non-negative lasso regression or non-negative elastic net regrssion on the whole set of $Sp500$ constituents. Actually this gives nice results, but we will see in experimental phase that selecting the assets and than estimate the model using OLS works better. 
+
+
 
 
 
