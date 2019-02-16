@@ -6,6 +6,8 @@
 \usepackage{lmodern}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{subcaption}
+
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -109,18 +111,18 @@ Unfortunately, this is not very useful. At time $t$ we are interested in predict
 As mentioned before, due to the high variance of the process this naive approach is quite inefficient and this will be a problem in the following sections where we will try to build up a financial strategy based on these predictions
 
 \begin{figure}[h!]
-  \centering
-  \includegraphics[scale=0.6]{err_step.png}
-  \caption{Accuracy in predicting $y_{t+h}$ given $x_t$ }
+\centering
+\begin{subfigure}{.2\textwidth}
+  \includegraphics[width=.4\linewidth]{err_step.png}
+  %\caption{Accuracy in predicting $y_{t+h}$ given $x_t$ }
   \label{err_step}
-\end{figure}
+\end{subfigure}%
 
-and focusing only on the one-step ahead prediction:
-\begin{figure}[h!]
-  \centering
-  \includegraphics[scale=0.6]{pred_step1.png}
-  \caption{One-step ahead prediction}
+\begin{subfigure}{.2\textwidth}
+  \includegraphics[width=.4\linewidth]{pred_step1.png}
+  %\caption{One-step ahead prediction}
   \label{err_step}
+\end{subfigure}% 
 \end{figure}
 
 
