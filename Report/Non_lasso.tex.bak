@@ -6,8 +6,6 @@
 \usepackage{lmodern}
 \usepackage{listings}
 \usepackage{color}
-\usepackage{subcaption}
-
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -111,18 +109,18 @@ Unfortunately, this is not very useful. At time $t$ we are interested in predict
 As mentioned before, due to the high variance of the process this naive approach is quite inefficient and this will be a problem in the following sections where we will try to build up a financial strategy based on these predictions
 
 \begin{figure}[h!]
-\centering
-\begin{subfigure}{.2\textwidth}
-  \includegraphics[width=.4\linewidth]{err_step.png}
-  %\caption{Accuracy in predicting $y_{t+h}$ given $x_t$ }
+  \centering
+  \includegraphics[scale=0.6]{err_step.png}
+  \caption{Accuracy in predicting $y_{t+h}$ given $x_t$ }
   \label{err_step}
-\end{subfigure}%
+\end{figure}
 
-\begin{subfigure}{.2\textwidth}
-  \includegraphics[width=.4\linewidth]{pred_step1.png}
-  %\caption{One-step ahead prediction}
+and focusing only on the one-step ahead prediction:
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.6]{pred_step1.png}
+  \caption{One-step ahead prediction}
   \label{err_step}
-\end{subfigure}% 
 \end{figure}
 
 
@@ -130,17 +128,10 @@ As mentioned before, due to the high variance of the process this naive approach
 \subsection{Parameter estimation}
 As we said our principal aim is to replicate the $Sp500$ with a relatively low number of assets. To select the rigth one we could use, as explained in the previous paragraph, lasso or elastic net regression; now we have to deal with the parameter estimation.
 
-As we said we suppose, as actually happen due to the fact that our index is just a combination of 500 assets, that $Sp500$ has a linear relation with the selected assets. A first and natural choice for the $\beta$ of the model are the one obtained by the non-negative lasso regression or non-negative elastic net regression on the whole set of $Sp500$ constituents. Actually this gives nice results, but we will see in experimental phase that selecting the assets and then estimate the model using OLS works better. 
+As we said we suppose, as actually happend due to the fact that our index is just a combination of 500 assets, that $Sp500$ has a linear relation with the selected assets. A first and natural choise for the $\beta$ of the model are the one obtained by the non-negative lasso regression or non-negative elastic net regrssion on the whole set of $Sp500$ constituents. Actually this gives nice results, but we will see in experimental phase that selecting the assets and than estimate the model using non negative OLS works better. 
+\\
 
-
-
-
-
-
-
-
-
-
+As stated in the previous paragraph, we will use a mooving window approach to build the models for both passive and active portfolio management. It's clear infact that the size of the used window will affect all the further analysis. After different tests, presented before, we decided to use a window 250 observation long. In this way we end up having enought data to build meaningfull models, but not too much, because we want to preserve the time invariance of the data inside the window.
 
 
 
@@ -148,6 +139,44 @@ As we said we suppose, as actually happen due to the fact that our index is just
 
 \newpage
 \section{Portfolio replication}
+In this section we will present the two developed strategies to manage the portfolio. 
+One of  the principal aim of porfolio management is the replication of a certain index performance, using only a relatively small number of assets. This is justified by the fact that a portfolio with 50 assets is much more flexible and easy to manage with respect to the one with 500 assets. Also an other good reason is that, depending of the type of taxation, could be necessary to pay a fixed amount of fee for each asset we decide to invest on. So if we are able to find a small subset of the 500 assets able to guarantee similar performances, we will gain in terms of management simplicity and lower taxation.
+
+\subsection{Beta}
+Using a moving window of length $250$ and using an appropriate regularization parameter $\lambda$ in order to have a number of variables (i.e number of $\beta$-parameters to estimate), we obtain the following result:
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.6]{beta_dataset.png}
+  \caption{Intercept and $\beta$-coefficients predicted by our model}
+  \label{beta_dataset}
+\end{figure}
+We want to understand how rapidly these $\beta$-parameters change, in particular the turnover among the variables and, in case the model trained in the window$[t+1:t+251]$  introduce a new variable with respect to the model trained in the window$[t:t+250]$, which is the weight of this new variable inside the model (and vice versa for a variable leaving the model). What we get is that on average only $5.49$ new variables are added to the new model (circa $4\%$) and $5.47$ are removed (circa $4\%$). Moreover, new assets enter the model with really low weight (so they still are almost irrelevant) and on the other hand leaving variables are unsurprisingly among the least important in the previous model. In fact, the mean value of the $\beta$-coefficients of the new variables is $0.000858$ (compared with a $0.006668$ mean value of all the $\beta$-coefficients of the chosen variables, only the $0.12\%$ of the chosen variables has a lower weight). We have a similar result also for the variables leaving the model.
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.6]{turnover.png}
+  \caption{Relevance of the added/removed variables inside the model}
+  \label{turnover}
+\end{figure}
+These results show that we can assume that our "relevant" variables, the ones chosen by our Lasso model at time $t$, will probably still be the important ones at time $t+1$ due to the fact that the only few turnovers we have are among the least important assets.
+
+
+\subsection{Passive approach}
+
+With passive approach, given that one tries to choose a growing index, we want to mimic as much as possible the index itself, in order to have its same performances.
+We will work with $Sp500$, below we report the $Sp500$ time series.
+
+
+	IMMAGINE     SP500
+	
+As it's clear by the plot, the considered index, on average, grows with time, so we would have been able to permorm just like the index also our protfolio would have increased its value.
+\\
+
+In previous paragraphs we already underligned how we could use Lasso in order to select the right subset of asset. So our passive approach to partfolio replication problem will be handled using lasso or elastic net.
+
+A first way to build the portfolio is to use non negative lasso regression on the starting window, representing the time at which one decides to starts to invest, and distribute the budget proportionally to the $\beta_{lasso}$. 
+
+
+
 
 
 
