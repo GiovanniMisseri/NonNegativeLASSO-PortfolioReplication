@@ -4,4 +4,5 @@
 \contentsline {subsection}{\numberline {2.2}Dataset Analysis}{5}
 \contentsline {subsection}{\numberline {2.3}Parameter estimation}{7}
 \contentsline {section}{\numberline {3}Portfolio replication}{9}
-\contentsline {subsection}{\numberline {3.1}Passive approach}{9}
+\contentsline {subsection}{\numberline {3.1}Beta}{9}
+\contentsline {subsection}{\numberline {3.2}Passive approach}{10}

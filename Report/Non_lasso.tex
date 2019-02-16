@@ -142,6 +142,24 @@ As stated in the previous paragraph, we will use a mooving window approach to bu
 In this section we will present the two developed strategies to manage the portfolio. 
 One of  the principal aim of porfolio management is the replication of a certain index performance, using only a relatively small number of assets. This is justified by the fact that a portfolio with 50 assets is much more flexible and easy to manage with respect to the one with 500 assets. Also an other good reason is that, depending of the type of taxation, could be necessary to pay a fixed amount of fee for each asset we decide to invest on. So if we are able to find a small subset of the 500 assets able to guarantee similar performances, we will gain in terms of management simplicity and lower taxation.
 
+\subsection{Beta}
+Using a moving window of length $250$ and using an appropriate regularization parameter $\lambda$ in order to have a number of variables (i.e number of $\beta$-parameters to estimate), we obtain the following result:
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.6]{beta_dataset.png}
+  \caption{Intercept and $\beta$-coefficients predicted by our model}
+  \label{beta_dataset}
+\end{figure}
+We want to understand how rapidly these $\beta$-parameters change, in particular the turnover among the variables and, in case the model trained in the window$[t+1:t+251]$  introduce a new variable with respect to the model trained in the window$[t:t+250]$, which is the weight of this new variable inside the model (and vice versa for a variable leaving the model). What we get is that on average only $5.49$ new variables are added to the new model (circa $4\%$) and $5.47$ are removed (circa $4\%$). Moreover, new assets enter the model with really low weight (so they still are almost irrelevant) and on the other hand leaving variables are unsurprisingly among the least important in the previous model. In fact, the mean value of the $\beta$-coefficients of the new variables is $0.000858$ (compared with a $0.006668$ mean value of all the $\beta$-coefficients of the chosen variables, only the $0.12\%$ of the chosen variables has a lower weight). We have a similar result also for the variables leaving the model.
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.6]{turnover.png}
+  \caption{Relevance of the added/removed variables inside the model}
+  \label{turnover}
+\end{figure}
+These results show that we can assume that our "relevant" variables, the ones chosen by our Lasso model at time $t$, will probably still be the important ones at time $t+1$ due to the fact that the only few turnovers we have are among the least important assets.
+
+
 \subsection{Passive approach}
 
 With passive approach, given that one tries to choose a growing index, we want to mimic as much as possible the index itself, in order to have its same performances.
