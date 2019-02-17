@@ -191,6 +191,30 @@ For all the further presented simulations we will use for uor analysis the daily
 
 The one reported above is the plot of the mean squared error value given a range of lambda going from $4.5$x$10^-5$ to $0.007$. The blue line shows the selected value for $\lambda$, $0.001$. This choise seems to be a good compromise between mean squared error and number of selected variables. Indeed the choosen $\lambda$	guarantees small error being just before its explosion, and on the other hand empirical test on the moving window sais that, with that lambda, we select on average 51 assets. So seems reasonable to use it.
 
+
+\subsection{Active approach}
+Now we want to try to use our predictions to build up a financial strategy: we invest our money at time $t$  in order to replicate $Sp500$ index only if we think that tomorrow the index will grow, otherwise we capitalize our portfolio and we don't invest money at time $t$. Every day we repeat this procedure trying to guess when the market will go up, investing only if this is the case.  Of course, we must consider a variable fee ($0.2\%$) we need to pay to make an investment.  We can aggregate this tax
+to $y$, the daily log revenue, modifying its value $y\rightarrow y+log(1-0.002)$: in this way if the new $y$ is still positive we want to reinvest our money even though this means to pay the additional fee.
+
+\subsubsection{}
+  \begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.6]{act_port.png}
+  \caption{Portfolio's evolution with 69 variables}
+  \label{portfolio_alpha}
+  \end{figure}
+  
+    \begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.6]{act_portfolio.png}
+  \caption{Portfolio's evolution compared with $Sp500$ index}
+  \label{portfolio_alpha}
+  \end{figure}
+
+\subsubsection{Logistic prediction}
+Since our concern is about predicting every day which is the right choice between reinvest or capitalize our portfolio we can use a logistic model where if the prediction for day $t$ is $0$ we don't invest our budget at $t$, vice versa if the prediction for day $t$ is $1$ we invest our budget at $t$ according to the $\beta_{Lasso}$ coefficients estimated as before using $X[t-250:t-1]$.
+
+
 \subsubsection{Simulations}
 
 \subparagraph{Non negative Lasso}
