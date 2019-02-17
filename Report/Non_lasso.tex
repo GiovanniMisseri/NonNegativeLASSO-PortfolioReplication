@@ -361,6 +361,25 @@ Since our concern is about predicting every day which is the right choice betwee
 
 Looking at the data we can see that our problem here is that we are not able to predict efficiently the value of $Sp500$ index and because of that we end up investing in the wrong moments.
 
+
+\newpage
+
 \section{Conclusions}
+
+At the end of this work we feel to have a deep understanding of the analyzed problem and its field. The work presented here is just a gentle introduction to portfolio managment methods, nevertheless we touched a whide range of problems and tried to propose different techniques to deal with them.
+\\
+
+The principal aim of this work was to manage and give a possible solution to portfolio replication problem. We  proposed different methods based on active or passive approach.
+
+From our analysis if one would like to follow an active approach, we would suggest him a non negative lasso model in order to predict the future value of the $Sp500$ index and invest in the selected assets proportionally to a lasso model built on the most recent available window.
+
+In general what we would suggest is not an active approach, in which its high variability often bring to loss. Indeed we would go for passive approach. In particular the best available option seems to be a portfolio in which one invest proportionaly to OLS beta related to lasso-selected assets.
+This approach is much less variable and our results support the evidence underligned quite often in the litterature: passive approach seems to bring better results with respect to active approach.
+\\
+
+Again is importat to say that this wants to be an example of how one can deal with a portfolio replication problem, and with a different index one would have obtained different results. So it's important to say that what doesn't allow us to perform well on active approach is the model to predict the one step ahead index return. With a better model, active approach, would be able to outperform passive approach. For sure, then, future work could be done in this direction.
+
+
+
 
 \end{document}

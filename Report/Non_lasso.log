@@ -1,29 +1,31 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.12.2)  17 FEB 2019 21:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.12.17)  17 FEB 2019 22:37
 entering extended mode
- restricted \write18 enabled.
- %&-line parsing enabled.
-**Non_lasso.tex
-(./Non_lasso.tex
-LaTeX2e <2017-04-15>
-Babel <3.10> and hyphenation patterns for 84 language(s) loaded.
-(/usr/local/texlive/2017/texmf-dist/tex/latex/base/article.cls
+**./Non_lasso.tex
+(Non_lasso.tex
+LaTeX2e <2018-04-01> patch level 5
+
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\article
+.cls"
 Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/texlive/2017/texmf-dist/tex/latex/base/size10.clo
+
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\latex\base\size10.
+clo"
 File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 )
-\c@part=\count79
-\c@section=\count80
-\c@subsection=\count81
-\c@subsubsection=\count82
-\c@paragraph=\count83
-\c@subparagraph=\count84
-\c@figure=\count85
-\c@table=\count86
+\c@part=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(/usr/local/texlive/2017/texmf-dist/tex/latex/lm/lmodern.sty
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\lmodern.s
+ty"
 Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
@@ -58,72 +60,74 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
 )
-(/usr/local/texlive/2017/texmf-dist/tex/latex/listings/listings.sty
-(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/keyval.sty
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\latex\listings\lis
+tings.sty"
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\key
+val.sty"
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-\lst@mode=\count87
+\lst@mode=\count88
 \lst@gtempboxa=\box26
 \lst@token=\toks15
-\lst@length=\count88
+\lst@length=\count89
 \lst@currlwidth=\dimen103
-\lst@column=\count89
-\lst@pos=\count90
+\lst@column=\count90
+\lst@pos=\count91
 \lst@lostspace=\dimen104
 \lst@width=\dimen105
-\lst@newlines=\count91
-\lst@lineno=\count92
+\lst@newlines=\count92
+\lst@lineno=\count93
 \lst@maxwidth=\dimen106
 
-(/usr/local/texlive/2017/texmf-dist/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
-\c@lstnumber=\count93
-\lst@skipnumbers=\count94
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\latex\listings\lst
+misc.sty"
+File: lstmisc.sty 2018/09/02 1.7 (Carsten Heinz)
+\c@lstnumber=\count94
+\lst@skipnumbers=\count95
 \lst@framebox=\box27
 )
-(/usr/local/texlive/2017/texmf-dist/tex/latex/listings/listings.cfg
-File: listings.cfg 2015/06/04 1.6 listings configuration
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\latex\listings\lis
+tings.cfg"
+File: listings.cfg 2018/09/02 1.7 listings configuration
 ))
-Package: listings 2015/06/04 1.6 (Carsten Heinz)
+Package: listings 2018/09/02 1.7 (Carsten Heinz)
 
-(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/color.sty
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\col
+or.sty"
 Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
 
-(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/color.cfg
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics-cfg
+\color.cfg"
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: pdftex.def on input line 147.
 
-(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2017/01/12 v0.06k Graphics/color for pdfTeX
-
-(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/infwarerr.sty
-Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
-)
-(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
-Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
-)
-\Gread@gobject=\count95
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics-def
+\pdftex.def"
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
-(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\gra
+phicx.sty"
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2017/04/14 v1.1b Standard LaTeX Graphics (DPC,SPQR)
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\gra
+phics.sty"
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics/trig.sty
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics\tri
+g.sty"
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
-(/usr/local/texlive/2017/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\latex\graphics-cfg
+\graphics.cfg"
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 99.
 )
 \Gin@req@height=\dimen107
 \Gin@req@width=\dimen108
-)
-(./Non_lasso.aux
+) (Non_lasso.aux
 
 LaTeX Warning: Label `err_step' multiply defined.
 
@@ -146,12 +150,15 @@ LaTeX Font Info:    ... okay on input line 26.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
 LaTeX Font Info:    ... okay on input line 26.
 LaTeX Font Info:    Try loading font information for OT1+lmr on input line 26.
- (/usr/local/texlive/2017/texmf-dist/tex/latex/lm/ot1lmr.fd
+
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd
+"
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 \c@lstlisting=\count96
 
-(/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\context\base\supp-
+pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count97
 \scratchdimen=\dimen109
@@ -164,70 +171,88 @@ File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 \MPnumerator=\count101
 \makeMPintoPDFobject=\count102
 \everyMPtoPDFconversion=\toks17
-) (/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
-Package: pdftexcmds 2017/03/19 v0.25 Utility functions of pdfTeX for LuaTeX (HO
 )
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\eps
+topdf-base.sty"
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
-(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\i
+nfwarerr.sty"
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\grf
+ext.sty"
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
+
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\k
+vdefinekeys.sty"
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\l
+txcmds.sty"
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)))
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\latex\oberdiek\kvo
+ptions.sty"
+Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
+
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\k
+vsetkeys.sty"
+Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
+
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\e
+texcmds.sty"
+Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
+
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\i
+fluatex.sty"
 Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX not detected.
 )
-(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/ifpdf.sty
-Package: ifpdf 2017/03/15 v3.2 Provides the ifpdf switch
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\p
+dftexcmds.sty"
+Package: pdftexcmds 2018/09/10 v0.29 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\generic\oberdiek\i
+fpdf.sty"
+Package: ifpdf 2018/09/07 v3.3 Provides the ifpdf switch
 )
 Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
 )
-(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
-Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
-
-(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/grfext.sty
-Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
-
-(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
-Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
-))
-(/usr/local/texlive/2017/texmf-dist/tex/latex/oberdiek/kvoptions.sty
-Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
-
-(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
-Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
-
-(/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/etexcmds.sty
-Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
-Package etexcmds Info: Could not find \expanded.
-(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
-(etexcmds)             that some package has redefined \expanded.
-(etexcmds)             In the latter case, load this package earlier.
-)))
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 38.
 Package grfext Info: Graphics extension search list:
-(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
-
-(/usr/local/texlive/2017/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
-))
+)
 LaTeX Font Info:    Try loading font information for OML+lmm on input line 27.
 
-(/usr/local/texlive/2017/texmf-dist/tex/latex/lm/omllmm.fd
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\omllmm.fd
+"
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 27.
 
 
-(/usr/local/texlive/2017/texmf-dist/tex/latex/lm/omslmsy.fd
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\omslmsy.f
+d"
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Try loading font information for OMX+lmex on input line 27.
 
 
-(/usr/local/texlive/2017/texmf-dist/tex/latex/lm/omxlmex.fd
+("C:\Users\luigimissri\AppData\Local\Programs\MiKTeX 2.9\tex\latex\lm\omxlmex.f
+d"
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -236,7 +261,7 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <8> on input line 27.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 27.
- (./Non_lasso.toc
+ (Non_lasso.toc
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10> on input line 3.
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -247,10 +272,9 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 \tf@toc=\write3
 \openout3 = `Non_lasso.toc'.
 
+ [1
 
-[1
-
-{/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+{C:/Users/luigimissri/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
 Underfull \hbox (badness 10000) in paragraph at lines 34--36
 
  []
@@ -265,13 +289,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 58--60
 
  []
 
-<./images/lasso.jpg, id=14, 419.76825pt x 225.84375pt>
+<./images/lasso.jpg, id=13, 419.76825pt x 225.84375pt>
 File: ./images/lasso.jpg Graphic file (type jpg)
-
 <use ./images/lasso.jpg>
-Package pdftex.def Info: ./images/lasso.jpg used on input line 66.
+Package pdftex.def Info: ./images/lasso.jpg  used on input line 66.
 (pdftex.def)             Requested size: 314.82541pt x 169.38239pt.
- [3]
+[3]
 Underfull \hbox (badness 10000) in paragraph at lines 72--74
 
  []
@@ -282,60 +305,59 @@ Overfull \hbox (4.69395pt too wide) in paragraph at lines 75--76
 re-gres-sion method,
  []
 
-[4 <./images/lasso.jpg>] <daily_var.png, id=28, 477.785pt x 312.16624pt>
+[4 <./images/lasso.jpg>]
+<daily_var.png, id=27, 477.785pt x 312.16624pt>
 File: daily_var.png Graphic file (type png)
-
 <use daily_var.png>
-Package pdftex.def Info: daily_var.png used on input line 88.
+Package pdftex.def Info: daily_var.png  used on input line 88.
 (pdftex.def)             Requested size: 286.6732pt x 187.3012pt.
  [5 <./daily_var.png>]
-<err_lambda.png, id=34, 231.86626pt x 288.07625pt>
+<err_lambda.png, id=33, 231.86626pt x 288.07625pt>
 File: err_lambda.png Graphic file (type png)
- <use err_lambda.png>
-Package pdftex.def Info: err_lambda.png used on input line 98.
+<use err_lambda.png>
+Package pdftex.def Info: err_lambda.png  used on input line 98.
 (pdftex.def)             Requested size: 139.12082pt x 172.84708pt.
-
-[6 <./err_lambda.png>] <err_step.png, id=39, 173.64874pt x 245.91875pt>
+ [6 <./err_lambda.png>]
+<err_step.png, id=38, 173.64874pt x 245.91875pt>
 File: err_step.png Graphic file (type png)
-
 <use err_step.png>
-Package pdftex.def Info: err_step.png used on input line 128.
+Package pdftex.def Info: err_step.png  used on input line 128.
 (pdftex.def)             Requested size: 95.5071pt x 135.25572pt.
- <pred_step1.png, id=40, 303.1325pt x 378.41376pt>
+<pred_step1.png, id=39, 303.1325pt x 378.41376pt>
 File: pred_step1.png Graphic file (type png)
-
 <use pred_step1.png>
-Package pdftex.def Info: pred_step1.png used on input line 135.
+Package pdftex.def Info: pred_step1.png  used on input line 135.
 (pdftex.def)             Requested size: 166.72339pt x 208.1282pt.
  [7 <./err_step.png> <./pred_step1.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 146--148
 
  []
 
-[8] <beta_dataset.png, id=50, 584.1825pt x 292.09125pt>
+[8]
+<beta_dataset.png, id=49, 584.1825pt x 292.09125pt>
 File: beta_dataset.png Graphic file (type png)
- <use beta_dataset.png>
-Package pdftex.def Info: beta_dataset.png used on input line 164.
+<use beta_dataset.png>
+Package pdftex.def Info: beta_dataset.png  used on input line 164.
 (pdftex.def)             Requested size: 350.51219pt x 175.25609pt.
 
 Overfull \hbox (5.51219pt too wide) in paragraph at lines 164--165
  [][] 
  []
 
-<turnover.png, id=51, 433.62pt x 289.08pt>
+<turnover.png, id=50, 433.62pt x 289.08pt>
 File: turnover.png Graphic file (type png)
- <use turnover.png>
-Package pdftex.def Info: turnover.png used on input line 171.
+<use turnover.png>
+Package pdftex.def Info: turnover.png  used on input line 171.
 (pdftex.def)             Requested size: 260.17401pt x 173.44933pt.
- [9 <./beta_dataset.png>]
+[9 <./beta_dataset.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 180--183
 
  []
 
-<./images/sp500.png, id=56, 412.54124pt x 301.125pt>
+<./images/sp500.png, id=55, 412.54124pt x 301.125pt>
 File: ./images/sp500.png Graphic file (type png)
- <use ./images/sp500.png>
-Package pdftex.def Info: ./images/sp500.png used on input line 185.
+<use ./images/sp500.png>
+Package pdftex.def Info: ./images/sp500.png  used on input line 185.
 (pdftex.def)             Requested size: 309.40517pt x 225.84319pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 185--187
@@ -357,11 +379,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 200--202
 
  []
 
-<./images/lassoplot.png, id=65, 331.2375pt x 339.51843pt>
+<./images/lassoplot.png, id=64, 331.2375pt x 339.51843pt>
 File: ./images/lassoplot.png Graphic file (type png)
-
 <use ./images/lassoplot.png>
-Package pdftex.def Info: ./images/lassoplot.png used on input line 204.
+Package pdftex.def Info: ./images/lassoplot.png  used on input line 204.
 (pdftex.def)             Requested size: 248.4275pt x 254.63818pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 204--206
@@ -373,18 +394,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 213--215
 
  []
 
-<./images/tablasso.jpg, id=70, 204.765pt x 113.82526pt>
+<./images/tablasso.jpg, id=69, 204.765pt x 113.82526pt>
 File: ./images/tablasso.jpg Graphic file (type jpg)
-
 <use ./images/tablasso.jpg>
-Package pdftex.def Info: ./images/tablasso.jpg used on input line 216.
+Package pdftex.def Info: ./images/tablasso.jpg  used on input line 216.
 (pdftex.def)             Requested size: 153.57335pt x 85.36871pt.
-
-<./images/lassoportfolio.png, id=71, 621.07031pt x 338.76563pt>
+<./images/lassoportfolio.png, id=70, 621.07031pt x 338.76563pt>
 File: ./images/lassoportfolio.png Graphic file (type png)
-
 <use ./images/lassoportfolio.png>
-Package pdftex.def Info: ./images/lassoportfolio.png used on input line 222.
+Package pdftex.def Info: ./images/lassoportfolio.png  used on input line 222.
 (pdftex.def)             Requested size: 372.64505pt x 203.26093pt.
 
 Overfull \hbox (42.64505pt too wide) in paragraph at lines 222--224
@@ -411,11 +429,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 260--262
 
  []
 
-<./images/elasticportfolio.png, id=83, 621.07031pt x 338.76563pt>
+<./images/elasticportfolio.png, id=82, 621.07031pt x 338.76563pt>
 File: ./images/elasticportfolio.png Graphic file (type png)
-
 <use ./images/elasticportfolio.png>
-Package pdftex.def Info: ./images/elasticportfolio.png used on input line 263.
+Package pdftex.def Info: ./images/elasticportfolio.png  used on input line 263.
+
 (pdftex.def)             Requested size: 372.64505pt x 203.26093pt.
 
 Overfull \hbox (42.64505pt too wide) in paragraph at lines 263--265
@@ -432,11 +450,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 271--273
 
  []
 
-<./images/olsportfolio.png, id=88, 621.07031pt x 338.76563pt>
+<./images/olsportfolio.png, id=87, 621.07031pt x 338.76563pt>
 File: ./images/olsportfolio.png Graphic file (type png)
-
 <use ./images/olsportfolio.png>
-Package pdftex.def Info: ./images/olsportfolio.png used on input line 274.
+Package pdftex.def Info: ./images/olsportfolio.png  used on input line 274.
 (pdftex.def)             Requested size: 372.64505pt x 203.26093pt.
 
 Overfull \hbox (42.64505pt too wide) in paragraph at lines 274--276
@@ -453,11 +470,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 284--286
 
  []
 
-<./images/betatime.png, id=93, 621.07031pt x 338.76563pt>
+<./images/betatime.png, id=92, 621.07031pt x 338.76563pt>
 File: ./images/betatime.png Graphic file (type png)
-
 <use ./images/betatime.png>
-Package pdftex.def Info: ./images/betatime.png used on input line 287.
+Package pdftex.def Info: ./images/betatime.png  used on input line 287.
 (pdftex.def)             Requested size: 372.64505pt x 203.26093pt.
 
 Overfull \hbox (42.64505pt too wide) in paragraph at lines 287--289
@@ -475,11 +491,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 294--296
  []
 
 [17 <./images/betatime.png>]
-<./images/dynamic14.png, id=98, 621.07031pt x 338.76563pt>
+<./images/dynamic14.png, id=97, 621.07031pt x 338.76563pt>
 File: ./images/dynamic14.png Graphic file (type png)
-
 <use ./images/dynamic14.png>
-Package pdftex.def Info: ./images/dynamic14.png used on input line 297.
+Package pdftex.def Info: ./images/dynamic14.png  used on input line 297.
 (pdftex.def)             Requested size: 372.64505pt x 203.26093pt.
 
 Overfull \hbox (42.64505pt too wide) in paragraph at lines 297--299
@@ -496,11 +511,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 302--304
 
  []
 
-<./images/dynamic47.png, id=99, 621.07031pt x 338.76563pt>
+<./images/dynamic47.png, id=98, 621.07031pt x 338.76563pt>
 File: ./images/dynamic47.png Graphic file (type png)
-
 <use ./images/dynamic47.png>
-Package pdftex.def Info: ./images/dynamic47.png used on input line 305.
+Package pdftex.def Info: ./images/dynamic47.png  used on input line 305.
 (pdftex.def)             Requested size: 372.64505pt x 203.26093pt.
 
 Overfull \hbox (42.64505pt too wide) in paragraph at lines 305--307
@@ -513,11 +527,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 305--307
  []
 
 [18 <./images/dynamic14.png>]
-<./images/kalmanprediction.png, id=104, 621.07031pt x 338.76563pt>
+<./images/kalmanprediction.png, id=103, 621.07031pt x 338.76563pt>
 File: ./images/kalmanprediction.png Graphic file (type png)
-
 <use ./images/kalmanprediction.png>
-Package pdftex.def Info: ./images/kalmanprediction.png used on input line 309.
+Package pdftex.def Info: ./images/kalmanprediction.png  used on input line 309.
+
 (pdftex.def)             Requested size: 372.64505pt x 203.26093pt.
 
 Overfull \hbox (42.64505pt too wide) in paragraph at lines 309--311
@@ -535,65 +549,75 @@ Underfull \hbox (badness 10000) in paragraph at lines 315--318
  []
 
 [19 <./images/dynamic47.png> <./images/kalmanprediction.png>] [20]
-<act_port.png, id=114, 258.9675pt x 321.2pt>
+<act_port.png, id=113, 258.9675pt x 321.2pt>
 File: act_port.png Graphic file (type png)
- <use act_port.png>
-Package pdftex.def Info: act_port.png used on input line 331.
+<use act_port.png>
+Package pdftex.def Info: act_port.png  used on input line 331.
 (pdftex.def)             Requested size: 155.38168pt x 192.72148pt.
-
-<act_portfolio.png, id=115, 433.62pt x 289.08pt>
+<act_portfolio.png, id=114, 433.62pt x 289.08pt>
 File: act_portfolio.png Graphic file (type png)
- <use act_portfolio.png>
-Package pdftex.def Info: act_portfolio.png used on input line 338.
+<use act_portfolio.png>
+Package pdftex.def Info: act_portfolio.png  used on input line 338.
 (pdftex.def)             Requested size: 260.17401pt x 173.44933pt.
-
-[21 <./act_port.png> <./act_portfolio.png>]
-<act_port_log.png, id=121, 263.98625pt x 317.185pt>
+ [21 <./act_port.png> <./act_portfolio.png>]
+<act_port_log.png, id=120, 263.98625pt x 317.185pt>
 File: act_port_log.png Graphic file (type png)
- <use act_port_log.png>
-Package pdftex.def Info: act_port_log.png used on input line 350.
+<use act_port_log.png>
+Package pdftex.def Info: act_port_log.png  used on input line 350.
 (pdftex.def)             Requested size: 145.19287pt x 174.45227pt.
-
-<act_portfolio_logit.png, id=122, 433.62pt x 289.08pt>
+<act_portfolio_logit.png, id=121, 433.62pt x 289.08pt>
 File: act_portfolio_logit.png Graphic file (type png)
-
 <use act_portfolio_logit.png>
-Package pdftex.def Info: act_portfolio_logit.png used on input line 357.
+Package pdftex.def Info: act_portfolio_logit.png  used on input line 357.
 (pdftex.def)             Requested size: 260.17401pt x 173.44933pt.
- [22 <./act_port_log.png> <./act_portfolio_logit.png>] [23] (./Non_lasso.aux)
+ [22 <./act_port_log.png> <./act_portfolio_logit.png>] [23]
+Underfull \hbox (badness 10000) in paragraph at lines 369--371
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 376--379
+
+ []
+
+[24] (Non_lasso.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 2934 strings out of 492995
- 44411 string characters out of 6132704
- 103938 words of memory out of 5000000
- 6427 multiletter control sequences out of 15000+600000
- 44420 words of font info for 39 fonts, out of 8000000 for 9000
+ 3031 strings out of 492970
+ 46722 string characters out of 3123929
+ 106499 words of memory out of 3000000
+ 6846 multiletter control sequences out of 15000+200000
+ 44420 words of font info for 39 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,8n,32p,1037b,226s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/
-texlive/2017/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/20
-17/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2017/texmf-d
-ist/fonts/enc/dvips/lm/lm-mathit.enc}</usr/local/texlive/2017/texmf-dist/fonts/
-type1/public/lm/lmbx10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/publ
-ic/lm/lmbx12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmex
-10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></u
-sr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/local/te
-xlive/2017/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2017/
-texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2017/texmf-dist/
-fonts/type1/public/lm/lmr17.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1
-/public/lm/lmr5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/l
-mr6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmr7.pfb></us
-r/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texl
-ive/2017/texmf-dist/fonts/type1/public/lm/lmri8.pfb></usr/local/texlive/2017/te
-xmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2017/texmf-dist/f
-onts/type1/public/lm/lmsy7.pfb>
-Output written on Non_lasso.pdf (23 pages, 895242 bytes).
+ 41i,8n,32p,1040b,224s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Users/luigimissri/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/lm/lm
+-rm.enc}{C:/Users/luigimissri/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips
+/lm/lm-mathsy.enc}{C:/Users/luigimissri/AppData/Local/Programs/MiKTeX 2.9/fonts
+/enc/dvips/lm/lm-mathex.enc}{C:/Users/luigimissri/AppData/Local/Programs/MiKTeX
+ 2.9/fonts/enc/dvips/lm/lm-mathit.enc}<C:/Users/luigimissri/AppData/Local/Progr
+ams/MiKTeX 2.9/fonts/type1/public/lm/lmbx10.pfb><C:/Users/luigimissri/AppData/L
+ocal/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmbx12.pfb><C:/Users/luigimissri
+/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmex10.pfb><C:/Users/l
+uigimissri/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmmi10.pfb><
+C:/Users/luigimissri/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lm
+mi7.pfb><C:/Users/luigimissri/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/pub
+lic/lm/lmr10.pfb><C:/Users/luigimissri/AppData/Local/Programs/MiKTeX 2.9/fonts/
+type1/public/lm/lmr12.pfb><C:/Users/luigimissri/AppData/Local/Programs/MiKTeX 2
+.9/fonts/type1/public/lm/lmr17.pfb><C:/Users/luigimissri/AppData/Local/Programs
+/MiKTeX 2.9/fonts/type1/public/lm/lmr5.pfb><C:/Users/luigimissri/AppData/Local/
+Programs/MiKTeX 2.9/fonts/type1/public/lm/lmr6.pfb><C:/Users/luigimissri/AppDat
+a/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmr7.pfb><C:/Users/luigimissr
+i/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmr8.pfb><C:/Users/lu
+igimissri/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmri8.pfb><C:
+/Users/luigimissri/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmsy
+10.pfb><C:/Users/luigimissri/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/publ
+ic/lm/lmsy7.pfb>
+Output written on Non_lasso.pdf (24 pages, 915056 bytes).
 PDF statistics:
  184 PDF objects out of 1000 (max. 8388607)
- 102 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  106 words of extra memory for PDF output out of 10000 (max. 10000000)
 
