@@ -22,6 +22,8 @@ y=(dldat[,1])
 mod=cv.glmnet(x[1:250,] ,y[1:250],lower.limits=0 )
 
 plot(mod)
+abline(v=-6.907755,lty=2,col=4)
+title("Lasso accuracy given lambda",line = 2.5)
 plot(glmnet(x ,y,lower.limits=0 ),xvar="lambda")
 
 sum(coef(mod,s=0.001)==0)
@@ -65,6 +67,8 @@ plot(mean_abs)
 #write.csv(beta_time,"ts_beta.csv")
 
 
+
+mean(colSums(ts_beta>0))
 
 ##  OLS ##
 # import ts_beta
