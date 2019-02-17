@@ -11,5 +11,5 @@
 \contentsline {subsubsection}{\numberline {3.3.2}Logistic prediction}{14}
 \contentsline {subsubsection}{\numberline {3.3.3}Simulations}{14}
 \contentsline {subparagraph}{Non negative Lasso}{14}
-\contentsline {subparagraph}{Non negative Elastic Net}{15}
-\contentsline {subparagraph}{Non negative OLS}{17}
+\contentsline {subparagraph}{Non negative Elastic Net}{16}
+\contentsline {subparagraph}{Non negative OLS}{18}

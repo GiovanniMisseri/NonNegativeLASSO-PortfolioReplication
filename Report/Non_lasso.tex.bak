@@ -212,8 +212,14 @@ to $y$, the daily log revenue, modifying its value $y\rightarrow y+log(1-0.002)$
   \end{figure}
 
 \subsubsection{Logistic prediction}
-Since our concern is about predicting every day which is the right choice between reinvest or capitalize our portfolio we can use a logistic model where if the prediction for day $t$ is $0$ we don't invest our budget at $t$, vice versa if the prediction for day $t$ is $1$ we invest our budget at $t$ according to the $\beta_{Lasso}$ coefficient estimated as before using $X[t-250:t-1]$.
+Since our concern is about predicting every day which is the right choice between reinvest or capitalize our portfolio we can use a logistic model where if the prediction for day $t$ is $0$ we don't invest our budget at $t$, vice versa if the prediction for day $t$ is $1$ we invest our budget at $t$ according to the $\beta_{Lasso}$ coefficients estimated as before using $X[t-250:t-1]$.
 
+  \begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.6]{act_port_log.png}
+  \caption{Portfolio's evolution compared with $Sp500$ index}
+  \label{portfolio_alpha}
+  \end{figure}
 
 \subsubsection{Simulations}
 
