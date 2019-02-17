@@ -191,43 +191,6 @@ For all the further presented simulations we will use for uor analysis the daily
 
 The one reported above is the plot of the mean squared error value given a range of lambda going from $4.5$x$10^-5$ to $0.007$. The blue line shows the selected value for $\lambda$, $0.001$. This choise seems to be a good compromise between mean squared error and number of selected variables. Indeed the choosen $\lambda$	guarantees small error being just before its explosion, and on the other hand empirical test on the moving window sais that, with that lambda, we select on average 51 assets. So seems reasonable to use it.
 
-
-\subsection{Active approach}
-Now we want to try to use our predictions to build up a financial strategy: we invest our money at time $t$  in order to replicate $Sp500$ index only if we think that tomorrow the index will grow, otherwise we capitalize our portfolio and we don't invest money at time $t$. Every day we repeat this procedure trying to guess when the market will go up, investing only if this is the case.  Of course, we must consider a variable fee ($0.2\%$) we need to pay to make an investment.  We can aggregate this tax
-to $y$, the daily log revenue, modifying its value $y\rightarrow y+log(1-0.002)$: in this way if the new $y$ is still positive we want to reinvest our money even though this means to pay the additional fee.
-
-\subsubsection{}
-  \begin{figure}[h!]
-  \centering
-  \includegraphics[scale=0.6]{act_port.png}
-  \caption{Portfolio's evolution with 69 variables}
-  \label{portfolio_alpha}
-  \end{figure}
-  
-    \begin{figure}[h!]
-  \centering
-  \includegraphics[scale=0.6]{act_portfolio.png}
-  \caption{Portfolio's evolution compared with $Sp500$ index}
-  \label{portfolio_alpha}
-  \end{figure}
-
-\subsubsection{Logistic prediction}
-Since our concern is about predicting every day which is the right choice between reinvest or capitalize our portfolio we can use a logistic model where if the prediction for day $t$ is $0$ we don't invest our budget at $t$, vice versa if the prediction for day $t$ is $1$ we invest our budget at $t$ according to the $\beta_{Lasso}$ coefficients estimated as before using $X[t-250:t-1]$.
-
-  \begin{figure}[h!]
-  \centering
-  \includegraphics[scale=0.6]{act_port_log.png}
-  \caption{Portfolio's evolution with 69 variables}
-  \label{portfolio_table_logit}
-  \end{figure}
-  
-      \begin{figure}[h!]
-  \centering
-  \includegraphics[scale=0.6]{act_portfolio_logit.png}
-  \caption{Portfolio's evolution compared with $Sp500$ index}
-  \label{portfolio_graph_logit}
-  \end{figure}
-
 \subsubsection{Simulations}
 
 \subparagraph{Non negative Lasso}
@@ -301,7 +264,74 @@ Below the plot with the simulation results.
 Actually also in our case OLS approximate the original index much better that the other two approches. So at the end of our simulations we would say that at the moment the better strategy to build a portfolio is to use lasso an invest on the selected assets proportionally to the ols estimate of the corresponding $\beta$. 
 With this approach at the end we gain less that using the others, but this can't be prooved to be a general characteristic. Here it happend that lasso and elastic net suggest to invest more on the assets that in future will grow more that the average, further work on investigating if this behaviour repeats also with other indexes would be interesting.
 
+\subsubsection{Dynamic models}
 
+Simulations in the previous section underlign that as the time goes our prediction get worts. This is due to the fact that our investment is static while real $\beta$ are dynamic, indeed as the time pass one inportant asset in the first window can become irrelevant after some lags. Due to this fact it's clear that to better fit the $Sp500$ index one would need update the model.
+
+To show how variable the ideal portfolio is in time we mooved the 250 observation long window trough the dataset, estimating each time a lasso model. What follows is the plot containing the time series of all the asset parameters that are at least ones bigger than zero.
+\\
+
+\includegraphics[scale=0.60]{betatime}
+\\
+
+This plot seems to be confusing, but actually this is really due to the variability of the beta over the time. One guess we can take from this plot is that even if on average we have 51 assets included in the portfolio, there are only few of them with high beta score, and also there are only few assets which strongly influence the portfolio over the whole analyzed time peried. Data proove that the intuition was right, indeed we have on average only 11 assets with related beta bigger then 0.023. 
+
+Actually the time variance importance of the assets resulted to be quite relevant. Indeed we built a dynamic regression model using the Kalman filter and we found that also with a dynamic model with only 14 assets, the performances where similar to the lasso approach, which considers 47 assets. This underlign the importance of time in this framework.
+
+Below the plot of the index and our portfolio value over time.
+\\
+
+\includegraphics[scale=0.60]{dynamic14}
+\\
+
+In general we also built a dynamic model with the same 47 assets considered by the lasso model. This sounds to be perfect, theoreticaly we should get a perfect fit and should be the ideal solution to portfolio replication problem. The problem with this model is actually the same caracteristic that makes it  good at prediction: the frequency of update. Indeed every time one update the model, in real life, should pay a fee due to the new investment, and the daily update of this approach make it unfeasible. Also another reason to doubt this result is its robustness to rapid change in $Sp500$, indeed the Kalman filter we used assumes gaussianity and omoschedasticity, but our objective series is etheroschedastic.  
+
+Below the plot of the Kalman filter results with respect ols prediction and $Sp500$.
+
+
+       IMMAGINE KALMAN PORTFOLIO
+       
+       
+       
+       
+       IMMAGINE KALMAN y
+       
+
+\subsection{Active approach}
+Now we want to try to use our predictions to build up a financial strategy: we invest our money at time $t$  in order to replicate $Sp500$ index only if we think that tomorrow the index will grow, otherwise we capitalize our portfolio and we don't invest money at time $t$. Every day we repeat this procedure trying to guess when the market will go up, investing only if this is the case.  Of course, we must consider a variable fee ($0.2\%$) we need to pay to make an investment.  We can aggregate this tax
+to $y$, the daily log revenue, modifying its value $y\rightarrow y+log(1-0.002)$: in this way if the new $y$ is still positive we want to reinvest our money even though this means to pay the additional fee.
+
+\subsubsection{}
+  \begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.6]{act_port.png}
+  \caption{Portfolio's evolution with 69 variables}
+  \label{portfolio_alpha}
+  \end{figure}
+  
+    \begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.6]{act_portfolio.png}
+  \caption{Portfolio's evolution compared with $Sp500$ index}
+  \label{portfolio_alpha}
+  \end{figure}
+
+\subsubsection{Logistic prediction}
+Since our concern is about predicting every day which is the right choice between reinvest or capitalize our portfolio we can use a logistic model where if the prediction for day $t$ is $0$ we don't invest our budget at $t$, vice versa if the prediction for day $t$ is $1$ we invest our budget at $t$ according to the $\beta_{Lasso}$ coefficients estimated as before using $X[t-250:t-1]$.
+
+  \begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.6]{act_port_log.png}
+  \caption{Portfolio's evolution with 69 variables}
+  \label{portfolio_table_logit}
+  \end{figure}
+  
+      \begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.6]{act_portfolio_logit.png}
+  \caption{Portfolio's evolution compared with $Sp500$ index}
+  \label{portfolio_graph_logit}
+  \end{figure}
 
 
 
