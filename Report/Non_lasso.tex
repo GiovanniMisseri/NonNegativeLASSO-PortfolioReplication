@@ -164,40 +164,105 @@ These results show that we can assume that our "relevant" variables, the ones ch
 
 With passive approach, given that one tries to choose a growing index, we want to mimic as much as possible the index itself, in order to have its same performances.
 We will work with $Sp500$, below we report the $Sp500$ time series.
+\\
 
 
-	IMMAGINE     SP500
-	
+\includegraphics[scale=0.75]{sp500}
+\\
+		
 As it's clear by the plot, the considered index, on average, grows with time, so we would have been able to perform just like the index also our portfolio would have increased its value.
 \\
 
 In previous paragraphs we already underlined how we could use Lasso in order to select the right subset of asset. So our passive approach to portfolio replication problem will be handled using lasso or elastic net.
 
-A first way to build the portfolio is to use non negative lasso regression on the starting window, representing the time at which one decides to starts to invest, and distribute the budget proportionally to the $\beta_{lasso}$. 
+A first way to build the portfolio is to use non negative lasso regression on the starting window, representing the time at which one decides to starts to invest, and distribute the budget proportionally to the $\beta_{lasso}$.. Given that we will work on daily log-returs, $\log(x_t)-\log(x_{t-1})$, both on dependent and independent variable. It's easy to see that $\exp(y_t)$, where $y_t$ is the responce variable ($Sp500$), it's equal to the proportional value of $Sp500$ with respect to the value it take one lag before. For this reason, estimated the model on the first 250 observations, we can get the value of our portfolio after $t$ day from our investment as $\exp(\sum_{i=1}^t \hat{y_i})$, where $\hat{y}$ is the model's predicted value of the observation at time $250+i$.
+
+For this reason becomes computationaly easy to calculate the gain of a passive approach to portfolio management. 
+\\
+
+Said that we can actualy report the result of the passive approach to the studied problem.
+
+For all the further presented simulations we will use for uor analysis the daily log-return of the $Sp500$ and its components form $07-01-2014$ till $09-02-2017$ (notice that some entries are missing, this is due to not collencted data). So we will start using the window made by the first 250 observations of our series and building a model using non negative lasso. As we said our aim here is to reduce the number of explanatory variable of the model; due to construction reason the best choise for $\lambda$ would be 0, infact with all the 500 components we can perfectly explain $Sp500$. So we will choose our lambda in order to have a good trade-off between number of variable kept and prediction error. 
+\\
 
 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[scale=0.6]{portfolio_alpha.png}
-  \caption{Portfolio's revenues varying $\lambda$}
-  \label{portfolio_alpha}
-  \end{figure}
+\includegraphics[scale=0.75]{lassoplot}
+\\
+
+The one reported above is the plot of the mean squared error value given a range of lambda going from $4.5$x$10^-5$ to $0.007$. The blue line shows the selected value for $\lambda$, $0.001$. This choise seems to be a good compromise between mean squared error and number of selected variables. Indeed the choosen $\lambda$	guarantees small error being just before its explosion, and on the other hand empirical test on the moving window sais that, with that lambda, we select on average 51 assets. So seems reasonable to use it.
+
+\subsubsection{Simulations}
+
+\subparagraph{Non negative Lasso}
+For the first simulation we will obtain our portfolio using non negative lasso. At this point we will invest in each asset proportionally its $\beta$. 
+
+Doing like that and calculating the relative value of the portfolio after 558 days, so keeping the same portfolio for the whole time period considered, we obtain that our portfolio now worth  1.191 times or initial portfolio, so we would have gained the $19,1\%$ percent of our initial investment. Below we report the result of the simulation.
+Note that there is inconsistency between the lambda choosed here due to sklearn and glmnet selection inconsistency, this is a known fact but we couldn figure out the reason, probably due to minimization problem definition.
+\\
+\begin{center}
+\includegraphics[scale=0.75]{tablasso}
+\\
+
+\end{center}
+
+
+\includegraphics[scale=0.60]{lassoportfolio}
+\\
+
+
+%\begin{figure}[h!]
+%  \centering
+%  \includegraphics[scale=0.6]{portfolio_alpha.png}
+%  \caption{Portfolio's revenues varying $\lambda$}
+%  \label{portfolio_alpha}
+%  \end{figure}
   
-\begin{figure}[h!]
-  \centering
-  \includegraphics[scale=0.6]{portfolio_pass_es.png}
-  \caption{Portfolio's evolution with 69 variables}
-  \label{portfolio_alpha}
-   \end{figure}
+%\begin{figure}[h!]
+%  \centering
+%  \includegraphics[scale=0.6]{portfolio_pass_es.png}
+%  \caption{Portfolio's evolution with 69 variables}
+%  \label{portfolio_alpha}
+%   \end{figure}
    
-  \begin{figure}[h!]
-  \centering
-  \includegraphics[scale=0.6]{pass_portfolio.png}
-  \caption{Portfolio's evolution compared with $Sp500$}
-  \label{portfolio_alpha}
-  \end{figure}
+%  \begin{figure}[h!]
+%  \centering
+%  \includegraphics[scale=0.6]{pass_portfolio.png}
+%  \caption{Portfolio's evolution compared with $Sp500$}
+%  \label{portfolio_alpha}
+%  \end{figure}
 
+So from the figure above we can see that our porfolio follows the $Sp500$ index really well initially and that as the time goes it differenciate from it. This is due to the fact that the model coefficient are not static in time and so even if we estimated a good model it stais good for a fixed period. This fact underlignes the needs of update the beta coefficient after a while. At the end of this simulation we gain $8.1\%$ more than the real indx, so not a good approximation of the index but we selected the assets that on average grew more than the market.
 
+\subparagraph{Non negative Elastic Net}
+Non negative lasso seems to work pretty well, but as we can see from the picture above happend that our portfolio value is quite different from the $Sp500$ index, surelly this can bring advantages if one decides to exit from the market in a moment in which he is earning more than the general index, but also the opposite situation is equally likely. So we would like to stick as much as possible to the index.
+
+If one thinks to the data we are working on, actually can happend to have an asset that is not really growing with time nor decreasing. This situation creates assests with very low variance and it brings to distorted model's coefficient for that specific asset. For this reson, also due to what we said in chapter (2), adding a ridge constrain to our minimization problem can help finding better beta.
+
+Adding a ridge constrain ends up being elastic net regression. As for lasso, also here we will work only on non negative coefficient.
+\\
+
+The general behaviour when varing the $\lambda$ value is the same as before;the behaiour of the portfolio time series varing the $\alpha$ parameter is interesting. $\alpha$ represents on which percentage the $l$-1 regularization enters in the minimization problem, $1-\alpha$ will be the percentage the ridge regularization enters. Infact mantaining almost constant the number of coefficients, adjusting properly $\alpha$ and $\beta$, the result is almost the same. So seems much more important the number of assets one uses whith respect the $\alpha$ and $\beta$ parameter.
+\\
+
+Below the plot containing the simulation results using non negative elastic net.
+\\
+
+\includegraphics[scale=0.60]{elasticportfolio}
+\\
+
+So it's clear that the two results are absolutely comparable. In the case reported above we used for elastic net $\lambda=0.0025$ and $\alpha=0.5$, but as previously said changing the two parameter the result doesn't change.
+
+\subparagraph{Non negative OLS}
+In this last simulation we will estimate the model's parameters using ols estimate on the lasso-selected assets. Different paper reported that empirically seems to work better then simply using lasso estimate. 
+
+Below the plot with the simulation results.
+\\
+
+\includegraphics[scale=0.60]{olsportfolio}
+\\
+
+Actually also in our case OLS approximate the original index much better that the other two approches. So at the end of our simulations we would say that at the moment the better strategy to build a portfolio is to use lasso an invest on the selected assets proportionally to the ols estimate of the corresponding $\beta$. 
+With this approach at the end we gain less that using the others, but this can't be prooved to be a general characteristic. Here it happend that lasso and elastic net suggest to invest more on the assets that in future will grow more that the average, further work on investigating if this behaviour repeats also with other indexes would be interesting.
 
 
 
