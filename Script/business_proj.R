@@ -1,9 +1,5 @@
 # see https://web.stanford.edu/~hastie/glmnet/glmnet_alpha.html to learn more
 require(glmnet)
-
-
-
-
 dldat <- read.csv("~/GitHub/NonNegativeLASSO-PortfolioReplication/Data/dldat.csv", row.names=1)
 a=colSums(is.na(dldat))
 sum(a!=0)
@@ -12,14 +8,28 @@ plot(ts(dldat[,1]))
 x=dldat[,-1]
 x=as.matrix(x)
 y=(dldat[,1])
+library(readr)
+ts_beta <- read_csv("GitHub/NonNegativeLASSO-PortfolioReplication/Data/ts_beta.csv")
+ts_beta=ts_beta[,-1]
+require(nnls)
+library(readr)
+require(astsa)
+require(tictoc)
 
 
-##    Lasso Portfolio replication   ##
+
+
+
+
+
+
+
+##  Non negative  Lasso Portfolio replication   ##
 
 
 
 #example on first window
-mod=cv.glmnet(x[1:250,] ,y[1:250],lower.limits=0 )
+mod=cv.glmnet(x[1:250,] ,y[1:250],lower.limits=0 ) #non negative lasso on first window
 
 plot(mod)
 abline(v=-6.907755,lty=2,col=4)
@@ -36,13 +46,14 @@ beta_time=matrix(NA,494,558)
 
 
 # Predict Y_n ~ X_n
+#cycle to get all the beta-lasso for all the windows (mooving window)
 i=1
 beta_time[,1]=(coef(mod,s=0.001)[,1])
 sum(beta_time[,1]==0)
 for( i in 1:558){
-  x=as.matrix(dldat[i:(i+249),-1])
-  y=as.matrix(dldat[i:(i+249),1])
-  mod=cv.glmnet(x ,y,lower.limits=0 )
+  x1=as.matrix(dldat[i:(i+249),-1])
+  y1=as.matrix(dldat[i:(i+249),1])
+  mod=cv.glmnet(x1 ,y1,lower.limits=0 )
   beta_time[,i]=(coef(mod,s=0.001)[,1])
 
 }
@@ -63,71 +74,12 @@ for (j in 1:250){
 
 }
 
-plot(mean_abs)
+plot(mean_abs) # as the lag grows the beta change, due to time dependence of y
 #write.csv(beta_time,"ts_beta.csv")
 
 
 
-mean(colSums(ts_beta>0))
-
-##  OLS ##
-# import ts_beta
-library(readr)
-ts_beta <- read_csv("GitHub/NonNegativeLASSO-PortfolioReplication/Data/ts_beta.csv")
-
-ts_beta=ts_beta[,-1]
-
-
-mask=ts_beta[,1]>0
-mask=mask[-1]
-x=as.matrix(x)
-dat=cbind(y[1:250],x[1:250,mask])
-dat=as.data.frame(dat)
-mod=lm(V1~. ,data = dat )
-summary(mod)
-
-
-
-
-tsplot(y[200:250],lwd=1)
-co=mod$coefficients
-lines(cbind(rep(1,length(200:250)),x[200:250,mask])%*%co,col=2,lwd=1)
-pred_ols=cbind(rep(1,length(200:250)),x[200:250,mask])%*%co
-
-co=as.matrix(ts_beta[c(TRUE,mask),1])
-lines(cbind(rep(1,length(200:250)),x[200:250,mask])%*%co,col=4)
-pred_lasso=cbind(rep(1,length(200:250)),x[200:250,mask])%*%co
-
-
-mean((y[200:250]-pred_ols)^2)
-
-R2=matrix(NA,nrow = 558,ncol = 2)
-
-
-i=1
-for (i in 1:558){
-  mask=ts_beta[,i]>0
-  mask=mask[-1]
-  x=as.matrix(x)
-  dat=cbind(y[i:(i+249)],x[i:(i+249),mask])
-  dat=as.data.frame(dat)
-  mod=lm(V1~. ,data = dat )
-
-  co=mod$coefficients
-  pred_ols=cbind(rep(1,250),x[i:(i+249),mask])%*%co
-  
-  co=as.matrix(ts_beta[c(TRUE,mask),1])
-  pred_lasso=cbind(rep(1,250),x[i:(i+249),mask])%*%co
-  
-  
-  R2[i,1]=1-mean((y[i:(i+249)]-pred_ols)^2)
-  R2[i,2]=1-mean((y[i:(i+249)]-pred_lasso)^2)
-  
-  
-  
-}
-
-sum(R2[,2]>R2[,1])
+mean(colSums(ts_beta>0)) #on average 51 assets selected with lasso (lambda=0.001)
 
 
 
@@ -135,34 +87,13 @@ sum(R2[,2]>R2[,1])
 
 ## Non negative OLS
 
-
-
-
-require(glmnet)
-
-dldat <- read.csv("~/GitHub/NonNegativeLASSO-PortfolioReplication/Data/dldat.csv", row.names=1)
-a=colSums(is.na(dldat))
-sum(a!=0)
-dldat=dldat[,a==0]
-plot(ts(dldat[,1]))
-x=dldat[,-1]
-x=as.matrix(x)
-y=(dldat[,1])
-
-
-require(nnls)
-library(readr)
-require(astsa)
-ts_beta <- read_csv("GitHub/NonNegativeLASSO-PortfolioReplication/Data/ts_beta.csv")
-
-ts_beta=ts_beta[,-1]
-
-
-mask=ts_beta[,1]>0
+#example of the model in the first window
+mask=ts_beta[,1]>0 #mask to take only the variables lasso gives positive value
 mask=mask[-1]
-x=as.matrix(x)
 
-mod=nnls(cbind(rep(1,250),x[1:250,mask]),y[1:250])
+mod=nnls(cbind(rep(1,250),x[1:250,mask]),y[1:250])#non negative ols
+
+#plot the real time series agains fitted OLS and fitted lasso
 
 tsplot(y[200:250],lwd=1)
 lines(mod$fitted[200:250],col=2,lwd=1)
@@ -171,10 +102,14 @@ pred_ols=mod$fitted[200:250]
 co=as.matrix(ts_beta[c(TRUE,mask),1])
 lines(cbind(rep(1,length(200:250)),x[200:250,mask])%*%co,col=4)
 pred_lasso=cbind(rep(1,length(200:250)),x[200:250,mask])%*%co
+# black=original series
+#red=ols fit
+#blue=lasso fit
+
+#as we can notice the result is similar, ols seems to approximate sligtly better y
 
 
-mean((y[200:250]-pred_ols)^2)
-
+#cycle to get R2 and absolute error for each window in the dataset
 R2=matrix(NA,nrow = 558,ncol = 2)
 Absol=matrix(NA,nrow = 558,ncol = 2)
 
@@ -182,7 +117,6 @@ i=1
 for (i in 1:558){
   mask=ts_beta[,i]>0
   mask=mask[-1]
-  x=as.matrix(x)
   mod=nnls(cbind(rep(1,250),x[i:(i+249),mask]),y[i:(i+249)])
   
   pred_ols=mod$fitted
@@ -199,46 +133,24 @@ for (i in 1:558){
   Absol[i,2]=mean(a[a!="Inf" & a!="NaN"])
 }
 
-sum(R2[,2]>R2[,1])
-
+sum(R2[,2]>R2[,1]) #the R squared using OLS is always higher, similar result for asbolute error
+sum(Absol[,2]<Absol[,1]) # OLS seems to have better performances but difference not as much drastic as before
 
 
 
 ## Portfolio simulation passive approach ##
-
-require(glmnet)
-
-dldat <- read.csv("~/GitHub/NonNegativeLASSO-PortfolioReplication/Data/dldat.csv", row.names=1)
-a=colSums(is.na(dldat))
-sum(a!=0)
-dldat=dldat[,a==0]
-plot(ts(dldat[,1]))
-x=dldat[,-1]
-x=as.matrix(x)
-y=(dldat[,1])
-
-require(nnls)
-library(readr)
-require(astsa)
-ts_beta <- read_csv("GitHub/NonNegativeLASSO-PortfolioReplication/Data/ts_beta.csv")
-
-ts_beta=ts_beta[,-1]
-
-
 mask=ts_beta[,1]>0
 mask=mask[-1]
 x=as.matrix(x)
 
-mod=nnls(cbind(rep(1,250),x[1:250,mask]),y[1:250])
+mod=nnls(cbind(rep(1,250),x[1:250,mask]),y[1:250]) #Non negative ols on the lasso-selected assets
 
 co=as.matrix(ts_beta[c(TRUE,mask),1])
-pred_lasso=cbind(rep(1,length(1:808)),x[1:808,mask])%*%co
+pred_lasso=cbind(rep(1,length(1:808)),x[1:808,mask])%*%co # lasso prediction for the whole period
 
 
-require(astsa)
-
-oo=exp(cumsum(y[251:808]))
-oo[558]
+oo=exp(cumsum(y[251:808])) # correspond to percentage value of the sp500 index with respect time 250
+oo[558] # final sp500 value (111% initial value)
 
 tsplot(oo,ylim=c(0.88,1.192),lwd=2,col="blue",main = "OLS Portfolio")
 lines(exp(cumsum(pred_lasso[251:808])),col="gray40",lty=2)
@@ -280,76 +192,6 @@ pred_elas=cbind(rep(1,length(1:808)),x[1:808,])%*%a
 
 lines(exp(cumsum(pred_elas[251:808])),col="gray40",lwd=1,lty=2)
 
-# tabella
-res=matrix(NA,6,3)
-
-
-
-mod=glmnet(x[1:250,] ,y[1:250],lower.limits=0,alpha = 1 )
-ss=0.001
-as=sum(coef(mod,s=ss)!=0);as
-a=coef(mod,s=ss)[,1]
-pred_elas=cbind(rep(1,length(1:808)),x[1:808,])%*%a
-require(astsa)
-ap=exp(cumsum(pred_elas[251:808]))
-ap[558] 
-
-r=1-sum((y[1:(250)]-pred_elas[1:250])^2)/sum((y[1:(250)]-mean(y[1:(250)]))^2)
-
-res[5,1]=ss
-res[5,2]=as
-res[5,3]=r
-
-re=as.data.frame(res)
-
-colnames(re)=c("Lambda","# Coeff","R2")
-
-re
-###############
-
-#Predict Y_n+1 ~ X_n
-
-
-mod=cv.glmnet(x[11:260,] ,y[12:261],lower.limits=0 )
-
-plot(mod)
-mod$lambda.1se
-sum(coef(mod,s=0.0001)==0)
-sum(coef(mod,s=mod$lambda.min)!=0)
-dim(coef(mod,s=0.0001))
-
-
-a=coef(mod,s=mod$lambda.min)
-a@Dimnames[[1]][a@i+1]
-
-beta_time=matrix(NA,494,558)
-
-
-
-
-i=1
-beta_time_n1[,1]=(coef(mod,s=0.0001)[,1])
-sum(beta_time[,1]==0)
-for( i in 1:557){
-  x=as.matrix(dldat[i:(i+249),-1])
-  y=as.matrix(dldat[i+1:(i+250),1])
-  mod=cv.glmnet(x ,y,lower.limits=0 )
-  beta_time_n1[,i]=(coef(mod,s=0.001)[,1])
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -357,12 +199,6 @@ for( i in 1:557){
 
 
 # New Kalman y ~ 2 series
-  
-  
-dldat <- read.csv("~/GitHub/NonNegativeLASSO-PortfolioReplication/Data/dldat.csv", row.names=1)
-x=dldat[1:250,c(2,3)]
-x=as.matrix(x)
-y=(dldat[1:250,1])
 
 num = length(y)
 
@@ -401,9 +237,6 @@ Linn = function ( para ) {
 }
 
 init.par = c(0.8,.8,.8   ,.1,.1,.1,  .5,  0.1,0.1,0.1  ) 
-
-require(astsa)
-require(tictoc)
 
 tic("optim")
 est = optim( init.par , Linn ,NULL , method = 'L-BFGS-B', hessian =T)
@@ -455,29 +288,15 @@ lines(res[200:250],col=2)
 
 
 
-## Portfolio simulation active approach  ##
-library(glmnet)
+## Dynamic regression model ##
 
-
-dldat <- read.csv("~/GitHub/NonNegativeLASSO-PortfolioReplication/Data/dldat.csv", row.names=1)
-a=colSums(is.na(dldat))
-sum(a!=0)
-dldat=dldat[,a==0]
-
-x=dldat[,-1]
-x=as.matrix(x)
-y=dldat[,1]
-mod=cv.glmnet(x[1:250,] ,y[1:250],lower.limits=0 )
+mod=cv.glmnet(x[1:250,] ,y[1:250],lower.limits=0 ) #changing lambda change the number of coefficient, with lambda=0.001 the dynamic regression model is done on the same variable lasso has been done
 m=coef(mod,s = 0.001)
 
 index=m@i+1
-m@Dimnames[[1]][m@i+1]
-
-
-
+m@Dimnames[[1]][m@i+1] #name of the considered assets
 
 mask=(m[,1]>0)
-
 
 num_reg=sum(mask)
 
@@ -529,9 +348,8 @@ Linn(init.par)
 require(astsa)
 require(tictoc)
 
-#est = optim( init.par , Linn ,NULL , method = 'L-BFGS-B', hessian =TRUE,control = list(trace=1,REPORT=10))
 tic("nlminb")
-est=nlminb(init.par,Linn,control = list(trace=10))
+est=nlminb(init.par,Linn,control = list(trace=10)) #nlminb doesn't give the hessian so we dont have estimate for the variance, but with the full model optim took 6 hours to run, nlminb took 1.2 hour
 toc()
 
 
@@ -572,7 +390,6 @@ legend("topleft",legend = c("Daily log-return","Kalman prediction"),col=c(1,2),l
 
 
 #Dynamic mod
-max(post)
 sum(rowSums(ts_beta)==0)
 post=ts_beta[rowSums(ts_beta)!=0,]
 tsplot(as.numeric(post[2,]),col=2,main="Beta Lasso time series", ylim=c(0,0.091),ylab = "")
@@ -592,9 +409,9 @@ mean(u)
 
 
 
+# revenue of dynamic regression model - plot
 
-
-oo=exp(cumsum(y[251:808]))
+oo=exp(cumsum(y[251:808])) 
 oo[808]
 tsplot(oo,ylim=c(0.8,1.38),lwd=2,col="blue",ylab="",main="Dynamic Portfolio - 47 assets")
 lines(exp(cumsum(res[251:808])),col="orange",lwd=2)
@@ -602,220 +419,4 @@ legend( "topleft",legend = c("initial buget","Sp500 index","Dynamic portfolio","
 abline(h=1)
 
 
-
-
-#
-
-
-
-
-
-
-
-
-
-# Kalman extension more regressors
-
-
-library(glmnet)
-
-
-dldat <- read.csv("~/GitHub/NonNegativeLASSO-PortfolioReplication/Data/dldat.csv", row.names=1)
-a=colSums(is.na(dldat))
-sum(a!=0)
-dldat=dldat[,a==0]
-
-x=dldat[,-1]
-x=as.matrix(x)
-y=dldat[,1]
-mod=cv.glmnet(x[559:808,] ,y[559:808],lower.limits=0 )
-m=coef(mod,s = 0.001)
-
-index=m@i+1
-mask=(m[,1]>0)
-
-
-num_reg=sum(mask)
-
-x=dldat[559:808,mask]
-x=x[,c(2:num_reg)]
-x=as.matrix(x)
-y=(dldat[559:808,1])
-
-num = length(y)
-
-
-A = array(1, dim=c(1 ,num_reg , num))
-
-for (i in 1: num ) {
-  A[1,2:num_reg,i]= x[i,]
-}
-input = rep(1, num )
-mu0 = matrix(0, num_reg, 1)
-Sigma0 = diag(0.1 , num_reg)
-Sigma0[num_reg,num_reg]=1
-
-
-Linn = function ( para ) {
-  Phi = diag (0 ,num_reg)
-  for (i in 1:num_reg){
-    Phi[i,i]=para[i]
-  }
-  
-  cQ = diag (0 ,num_reg)
-  for (i in 1:num_reg){
-    cQ[i,i]=para[i+num_reg]
-  }
-  cR = para [num_reg*2+1] 
-  
-  ups=matrix(0,num_reg,1)
-  for (i in 1:num_reg){
-    ups[i,1]=para[num_reg*2+1+i]
-  }
-  
-  kf = Kfilter1(num , y , A, mu0 , Sigma0 , Phi ,Ups = ups,Gam = 0, cQ , cR,input)
-  return ((kf$ like )/100 + (0.01*sum(para[2:num_reg]))/100 )
-}
-
-
-init.par = c(rep(0.75,num_reg)   ,rep(0.1,num_reg),  .5,  rep(0.1,num_reg)  )
-
-
-Linn(init.par)
-require(astsa)
-
-#est = optim( init.par , Linn ,NULL , method = 'L-BFGS-B', hessian =TRUE,control = list(trace=1,REPORT=10))
-tic("nlminb")
-est=nlminb(init.par,Linn,control = list(trace=10))
-toc()
-SE = sqrt ( diag ( solve ( est $ hessian )))
-u = cbind ( estimate = est $par , SE)
-
-
-Phi = diag (0 ,num_reg)
-for (i in 1:num_reg){
-  Phi[i,i]=est$par[i]
-}
-
-cQ = diag (0 ,num_reg)
-for (i in 1:num_reg){
-  cQ[i,i]=est$par[i+num_reg]
-}
-cR = est$par [num_reg*2+1] 
-
-ups=matrix(0,num_reg,1)
-for (i in 1:num_reg){
-  ups[i,1]=est$par[num_reg*2+1+i]
-}
-kf = Kfilter1(num , y , A, mu0 , Sigma0 , Phi ,Ups = ups,Gam = 0, cQ , cR,input)
-
-
-res=1:250
-for (i in 1:250){
-  res[i]=A[,,i]%*%kf$xp[,,i]
-  
-}
-
-
-
-tsplot(y[200:250])
-lines(res[200:250],col=2)
-
-
-est$par
-
-
-# Kalman filter all Lasso-positive series
-
-
-
-library(readr)
-ts_beta <- read_csv("GitHub/NonNegativeLASSO-PortfolioReplication/Data/ts_beta.csv")
-ts_beta=ts_beta[,-1]
-t558=(ts_beta[,558])
-
-
-
-mask=(t558[,1]>0)
-dldat <- read.csv("~/GitHub/NonNegativeLASSO-PortfolioReplication/Data/dldat.csv", row.names=1)
-a=colSums(is.na(dldat))
-sum(a!=0)
-dldat=dldat[,a==0]
-
-x=dldat[559:808,mask]
-x=as.matrix(x)
-y=(dldat[559:808,1])
-
-num = length(y)
-
-
-A = array(1, dim=c(1 ,48 , num))
-
-for (i in 1: num ) {
-  A[1,2:48,i]= x[i,]
-}
-
-input = rep(1, num )
-mu0 = matrix(0, 48, 1) #put last available value later
-Sigma0 = diag(c(.1 , .1, 1) , 48)
-
-
-
-Linn = function ( para ) {
-  Phi = diag (0 ,48)
-  for (i in 1:48){
-    Phi[i,i]=para[i]
-  }
-  
-  cQ = diag (0 ,48)
-  for (i in 1:48){
-    cQ[i,i]=para[i+48]
-  }
-  cR = para [97] 
-  
-  ups=matrix(0,48,1)
-  for (i in 1:48){
-    ups[i,1]=para[97+i]
-  }
-  
-  kf = Kfilter1(num , y , A, mu0 , Sigma0 , Phi ,Ups = ups,Gam = 0, cQ , cR,input)
-  return (kf$ like )
-}
-
-init.par = c(rep(0.8,48)   ,rep(0.1,48),  .5,  rep(0.1,48)  ) 
-est = optim( init.par , Linn ,NULL , method = 'L-BFGS-B', hessian =TRUE)
-
-SE = sqrt ( diag ( solve ( est $ hessian )))
-u = cbind ( estimate = est $par , SE)
-
-
-Phi = diag (0 ,48)
-for (i in 1:48){
-  Phi[i,i]=est$par[i]
-}
-
-cQ = diag (0 ,48)
-for (i in 1:48){
-  cQ[i,i]=est$par[i+48]
-}
-cR = est$par [97] 
-
-ups=matrix(0,48,1)
-for (i in 1:48){
-  ups[i,1]=est$par[97+i]
-}
-kf = Kfilter1(num , y , A, mu0 , Sigma0 , Phi ,Ups = ups,Gam = 0, cQ , cR,input)
-
-res=1:250
-for (i in 1:250){
-  res[i]=A[,,i]%*%kf$xp[,,i]
-  
-}
-
-
-
-lines(y[200:250])
-tsplot(res[200:250],col=2)
-
-write.csv(est$par,"param1.csv")
 
