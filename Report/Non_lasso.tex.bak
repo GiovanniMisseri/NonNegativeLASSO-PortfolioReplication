@@ -175,21 +175,21 @@ As it's clear by the plot, the considered index, on average, grows with time, so
 
 In previous paragraphs we already underlined how we could use Lasso in order to select the right subset of asset. So our passive approach to portfolio replication problem will be handled using lasso or elastic net.
 
-A first way to build the portfolio is to use non negative lasso regression on the starting window, representing the time at which one decides to starts to invest, and distribute the budget proportionally to the $\beta_{lasso}$.. Given that we will work on daily log-returs, $\log(x_t)-\log(x_{t-1})$, both on dependent and independent variable. It's easy to see that $\exp(y_t)$, where $y_t$ is the responce variable ($Sp500$), it's equal to the proportional value of $Sp500$ with respect to the value it take one lag before. For this reason, estimated the model on the first 250 observations, we can get the value of our portfolio after $t$ day from our investment as $\exp(\sum_{i=1}^t \hat{y_i})$, where $\hat{y}$ is the model's predicted value of the observation at time $250+i$.
+A first way to build the portfolio is to use non negative lasso regression on the starting window, representing the time at which one decides to starts to invest, and distribute the budget proportionally to the $\beta_{lasso}$.. Given that we will work on daily log-returns, $\log(x_t)-\log(x_{t-1})$, both on dependent and independent variable. It's easy to see that $\exp(y_t)$, where $y_t$ is the response variable ($Sp500$), it's equal to the proportional value of $Sp500$ with respect to the value it take one lag before. For this reason, estimated the model on the first 250 observations, we can get the value of our portfolio after $t$ day from our investment as $\exp(\sum_{i=1}^t \hat{y_i})$, where $\hat{y}$ is the model's predicted value of the observation at time $250+i$.
 
-For this reason becomes computationaly easy to calculate the gain of a passive approach to portfolio management. 
+For this reason becomes computationally easy to calculate the gain of a passive approach to portfolio management. 
 \\
 
-Said that we can actualy report the result of the passive approach to the studied problem.
+Said that we can actually report the result of the passive approach to the studied problem.
 
-For all the further presented simulations we will use for uor analysis the daily log-return of the $Sp500$ and its components form $07-01-2014$ till $09-02-2017$ (notice that some entries are missing, this is due to not collencted data). So we will start using the window made by the first 250 observations of our series and building a model using non negative lasso. As we said our aim here is to reduce the number of explanatory variable of the model; due to construction reason the best choise for $\lambda$ would be 0, infact with all the 500 components we can perfectly explain $Sp500$. So we will choose our lambda in order to have a good trade-off between number of variable kept and prediction error. 
+For all the further presented simulations we will use for our analysis the daily log-return of the $Sp500$ and its components form $07-01-2014$ till $09-02-2017$ (notice that some entries are missing, this is due to not collected data). So we will start using the window made by the first 250 observations of our series and building a model using non negative lasso. As we said our aim here is to reduce the number of explanatory variable of the model; due to construction reason the best choice for $\lambda$ would be 0, in fact with all the 500 components we can perfectly explain $Sp500$. So we will choose our lambda in order to have a good trade-off between number of variable kept and prediction error. 
 \\
 
 
 \includegraphics[scale=0.75]{lassoplot}
 \\
 
-The one reported above is the plot of the mean squared error value given a range of lambda going from $4.5$x$10^-5$ to $0.007$. The blue line shows the selected value for $\lambda$, $0.001$. This choise seems to be a good compromise between mean squared error and number of selected variables. Indeed the choosen $\lambda$	guarantees small error being just before its explosion, and on the other hand empirical test on the moving window sais that, with that lambda, we select on average 51 assets. So seems reasonable to use it.
+The one reported above is the plot of the mean squared error value given a range of lambda going from $4.5$x$10^-5$ to $0.007$. The blue line shows the selected value for $\lambda$, $0.001$. This choice seems to be a good compromise between mean squared error and number of selected variables. Indeed the chosen $\lambda$	guarantees small error being just before its explosion, and on the other hand empirical test on the moving window says that, with that lambda, we select on average 51 assets. So seems reasonable to use it.
 
 
 \subsection{Active approach}
@@ -217,8 +217,15 @@ Since our concern is about predicting every day which is the right choice betwee
   \begin{figure}[h!]
   \centering
   \includegraphics[scale=0.6]{act_port_log.png}
+  \caption{Portfolio's evolution with 69 variables}
+  \label{portfolio_table_logit}
+  \end{figure}
+  
+      \begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.6]{act_portfolio_logit.png}
   \caption{Portfolio's evolution compared with $Sp500$ index}
-  \label{portfolio_alpha}
+  \label{portfolio_graph_logit}
   \end{figure}
 
 \subsubsection{Simulations}
@@ -227,7 +234,7 @@ Since our concern is about predicting every day which is the right choice betwee
 For the first simulation we will obtain our portfolio using non negative lasso. At this point we will invest in each asset proportionally its $\beta$. 
 
 Doing like that and calculating the relative value of the portfolio after 558 days, so keeping the same portfolio for the whole time period considered, we obtain that our portfolio now worth  1.191 times or initial portfolio, so we would have gained the $19,1\%$ percent of our initial investment. Below we report the result of the simulation.
-Note that there is inconsistency between the lambda choosed here due to sklearn and glmnet selection inconsistency, this is a known fact but we couldn figure out the reason, probably due to minimization problem definition.
+Note that there is inconsistency between the lambda chosen here due to sklearn and glmnet selection inconsistency (the objective function in 
 \\
 \begin{center}
 \includegraphics[scale=0.75]{tablasso}

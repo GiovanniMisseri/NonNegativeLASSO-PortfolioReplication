@@ -6,11 +6,10 @@
 \contentsline {section}{\numberline {3}Portfolio replication}{9}
 \contentsline {subsection}{\numberline {3.1}Beta}{9}
 \contentsline {subsection}{\numberline {3.2}Passive approach}{10}
-\contentsline {subsubsection}{\numberline {3.2.1}Simulations}{13}
-\contentsline {subparagraph}{Non negative Lasso}{13}
-\contentsline {subparagraph}{Non negative Elastic Net}{14}
-\contentsline {subparagraph}{Non negative OLS}{16}
-\contentsline {subsubsection}{\numberline {3.2.2}Dynamic models}{16}
-\contentsline {subsection}{\numberline {3.3}Active approach}{19}
-\contentsline {subsubsection}{\numberline {3.3.1}}{19}
-\contentsline {subsubsection}{\numberline {3.3.2}Logistic prediction}{19}
+\contentsline {subsection}{\numberline {3.3}Active approach}{13}
+\contentsline {subsubsection}{\numberline {3.3.1}}{13}
+\contentsline {subsubsection}{\numberline {3.3.2}Logistic prediction}{14}
+\contentsline {subsubsection}{\numberline {3.3.3}Simulations}{14}
+\contentsline {subparagraph}{Non negative Lasso}{14}
+\contentsline {subparagraph}{Non negative Elastic Net}{16}
+\contentsline {subparagraph}{Non negative OLS}{18}
