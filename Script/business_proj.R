@@ -236,16 +236,75 @@ pred_lasso=cbind(rep(1,length(1:808)),x[1:808,mask])%*%co
 
 
 require(astsa)
-tsplot(y[451:500])
-lines(pred_lasso[201:250],col=4)
+
+oo=exp(cumsum(y[251:808]))
+oo[558]
+
+tsplot(oo,ylim=c(0.88,1.192),lwd=2,col="blue",main = "OLS Portfolio")
+lines(exp(cumsum(pred_lasso[251:808])),col="gray40",lty=2)
 
 
-exp(sum(pred_lasso[251:808]))
+co=mod$x
+pred_ols=cbind(rep(1,length(1:808)),x[1:808,mask])%*%co
+lines(exp(cumsum(pred_ols[251:808])),col="orange",lty=1,lwd=2)
+
+
+lines(exp(cumsum(pred_lasso[251:808])),col="gray40",lty=2)
+
+legend( "topleft",legend = c("initial buget","Sp500 index","OLS portfolio","Lasso portfolio"),col = c(1,"blue","orange","gray40"),lty = c(1,1,1,2),lwd=c(2,2,2,1))
+abline(h=1)
 
 
 
+# elastic net
+
+mod=glmnet(x[1:250,] ,y[1:250],lower.limits=0,alpha = 0.5 )
+ss=0.0025
+sum(coef(mod,s=ss)!=0)
+a=coef(mod,s=ss)[,1]
+pred_elas=cbind(rep(1,length(1:808)),x[1:808,])%*%a
+require(astsa)
+ap=exp(cumsum(pred_elas[251:808]))
+ap[558]      
+oo=exp(cumsum(y[251:808]))
+oo[558]
+tsplot(oo,ylim=c(0.88,1.19),lwd=2,col="blue",ylab="",main="Elastic net Portfolio")
+lines(exp(cumsum(pred_elas[251:808])),col="orange",lwd=2)
+legend( "topleft",legend = c("initial buget","Sp500 index","Elastic portfolio","Lasso portfolio"),col = c(1,"blue","orange","gray40"),lty = c(1,1,1,2),lwd=c(2,2,2,1))
+abline(h=1)
+# 
+mod=glmnet(x[1:250,] ,y[1:250],lower.limits=0,alpha = 1)
+sum(coef(mod,s=0.001)!=0)
+a=coef(mod,s=0.001)[,1]
+pred_elas=cbind(rep(1,length(1:808)),x[1:808,])%*%a
+
+lines(exp(cumsum(pred_elas[251:808])),col="gray40",lwd=1,lty=2)
+
+# tabella
+res=matrix(NA,6,3)
 
 
+
+mod=glmnet(x[1:250,] ,y[1:250],lower.limits=0,alpha = 1 )
+ss=0.001
+as=sum(coef(mod,s=ss)!=0);as
+a=coef(mod,s=ss)[,1]
+pred_elas=cbind(rep(1,length(1:808)),x[1:808,])%*%a
+require(astsa)
+ap=exp(cumsum(pred_elas[251:808]))
+ap[558] 
+
+r=1-sum((y[1:(250)]-pred_elas[1:250])^2)/sum((y[1:(250)]-mean(y[1:(250)]))^2)
+
+res[5,1]=ss
+res[5,2]=as
+res[5,3]=r
+
+re=as.data.frame(res)
+
+colnames(re)=c("Lambda","# Coeff","R2")
+
+re
 ###############
 
 #Predict Y_n+1 ~ X_n
@@ -279,14 +338,6 @@ for( i in 1:557){
 }
 
 
-
-# R2
-
-r2 <- mod$glmnet.fit$dev.ratio[which(mod$glmnet.fit$lambda == 0.0001)]
-
-
-library(readr)
-ts_beta <- read_csv("GitHub/NonNegativeLASSO-PortfolioReplication/Data/ts_beta.csv")
 
 
 
