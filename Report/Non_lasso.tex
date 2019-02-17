@@ -36,14 +36,14 @@ Markowitz in the '50, stated that single minded pursuit of high returns results 
 
 There are mainly two strategies in portfolio management, active and passive managements. Active management tries to exploit the fluctuations of the market to gain as much as possible. On the other hand, passive management, tries to mimic the performance of an index. As one can easily notice, with active approach it's possible to loose great amount of money even investing on, on average, growing companies. On the other hand if we are able to well mimic a, on average, growing index, with passive approach we are guaranteed positive revenue.
 
-Empirically is often the case passive approach outperforms active approach, also due to the transaction costs. In this work will try to propose two different solution to pursue respectively the passive and the active approach.
+Empirically is often the case that passive approach outperforms active approach, also due to the transaction costs. In this work we will propose two different solutions to pursue respectively the passive and the active approach.
 
 \newpage
 \section{Shrinkage Methods}
 
-If we have a feature or some measurements of an interesting phenomenon, is often the case that, given some related variables, we try to explain the phenomenon as a function of the related variables. The use of linear model, in case of linear relation between phenomenon and variables, is a good choice for two reasons: it gives good prediction and on the other hand, given the linear relation, it's highly interpretable. 
+If we have a feature or some measurements of an interesting phenomenon, is often the case that, given some related variables, we try to explain the phenomenon as a function of the related variables. The use of linear model, in case of linear relation between phenomenon and variables, is a good choice for two reasons: it gives good prediction and on the other hand it's highly interpretable. 
 
-In general the more correlated variables we have, the "better" the model will be; but sometimes the presence of too much independent variables conditions the prediction error and also the presence of an high number of predictors limits the interpretability of the model. For these reasons one could decide to add a regularization term to its minimum least square problem.
+In general the more correlated variables we have, the "better" the model will be; but sometimes the presence of too much independent variables conditions the prediction error, and also the presence of an high number of predictors limits the interpretability of the model. For these reasons one could decide to add a regularization term to its minimum least square problem.
 
 \[
 \min_{\beta_0 , \beta} \frac{1}{N} \sum_{i=1}^N (y_i-\beta_0 - \sum_{j=1}^p x_{ij}\beta_j)^2 + \lambda\sum_{j=1}^p |\beta_j |^q 
@@ -76,7 +76,7 @@ Here comes one problem, how to use lasso, a cross-sectional regression method, o
 
 Another problem is the interpretation of the resulting model. Ones we find the solution to the lasso minimization problem, we have the beta related to all the variables, in our case the components of the index. Some beta will be equal to zero, so they will be excluded by our portfolio, for all the other beta a nice interpretation is available. 
 
-If we carefully think to lasso as it has been defined in $(1)$, we approximate an index, the used one will be $Sp500$, as a function of some of it's components, conditioning to the fact that the sum of the associated beta is less than a given $t$. Practically we will work on the daily log-returns, and so our response and regressors will be all daily log-return; said that it's easy to see that $t$ can be seen as the initial budget and each beta is the volume of the "suggested" investment in a certain asset. Later on we will exploit this fact to run simulations using the different proposed methods.
+If we carefully think to lasso as it has been defined in $(1)$, we approximate an index, the used one will be $Sp500$, as a function of some of it's components, conditioning to the fact that the sum of the associated beta is less than a given $t$. Practically we will work on the daily log-returns, and so our response and regressors will be all daily log-return; said that it's easy to see that $t$ can be seen as the initial budget and each beta is the volume of the "suggested" investment in a certain asset to do in order to replicate the index performances. Later on we will exploit this fact to run simulations using the different proposed methods.
 
 For an active approach everything works fine, a positive beta will be an investment and a negative beta will be a short sell. On the other hand, for passive approach, it could be forbidden or in general doesn't make much sense to use short sell. For this reason to our estimates we need to add the constrain of non-negativity.
 \\
@@ -101,7 +101,7 @@ We start our analysis with the simpler case in which we want to replicate $Sp500
   \label{err_alpha}
 \end{figure}
 
-Unfortunately, this is not very useful. At time $t$ we are interested in predicting $Sp500$ at time $t+1$ and according to that planning our financial strategy. The simplest way to do it is by using our linear model shifting $y_t$ by a step $h$ with respect to $x_t$:
+Unfortunately, this is not very useful for active approach. At time $t$ we are interested in predicting $Sp500$ at time $t+1$ and according to that, planning our financial strategy. The simplest way to do it is by using our linear model shifting $y_t$ by a step $h$ with respect to $x_t$:
 \begin{equation}
  \min_{\beta} \sum_{t=1}^T ( y_{t+h} -\beta_0 -\sum_{j=1}^p x_{tj} \beta_j)^2 ~~subject~to~\sum_{j=1}^p |\beta_j| \leq C.
 \end{equation}
@@ -126,7 +126,7 @@ and focusing only on the one-step ahead prediction:
 
 
 \subsection{Parameter estimation}
-As we said our principal aim is to replicate the $Sp500$ with a relatively low number of assets. To select the right one we could use, as explained in the previous paragraph, lasso or elastic net regression; now we have to deal with the parameter estimation.
+As we said our principal aim is to replicate the $Sp500$ with a relatively low number of assets. To select the right one we could use, as explained in previous paragraphs, lasso or elastic net regression; now we have to deal with the parameter estimation.
 
 As we said we suppose, as actually happens due to the fact that our index is just a combination of 500 assets, that $Sp500$ has a linear relation with the selected assets. A first and natural choice for the $\beta$ of the model are the one obtained by the non-negative lasso regression or non-negative elastic net regression on the whole set of $Sp500$ constituents. Actually this gives nice results, but we will see in experimental phase that selecting the assets and than estimate the model using non negative OLS works better. 
 \\
@@ -287,19 +287,22 @@ Below the plot of the index and our portfolio value over time.
 In general we also built a dynamic model with the same 47 assets considered by the lasso model. This sounds to be perfect, theoreticaly we should get a perfect fit and should be the ideal solution to portfolio replication problem. The problem with this model is actually the same caracteristic that makes it  good at prediction: the frequency of update. Indeed every time one update the model, in real life, should pay a fee due to the new investment, and the daily update of this approach make it unfeasible. Also another reason to doubt this result is its robustness to rapid change in $Sp500$, indeed the Kalman filter we used assumes gaussianity and omoschedasticity, but our objective series is etheroschedastic.  
 
 Below the plot of the Kalman filter results with respect ols prediction and $Sp500$.
+\\
 
+\includegraphics[scale=0.60]{dynamic47}
+\\
 
-       IMMAGINE KALMAN PORTFOLIO
-       
-       
-       
-       
-       IMMAGINE KALMAN y
-       
+  
+\includegraphics[scale=0.60]{kalmanprediction}
+\\       
+
+As we said, here the low robustness of the method end up in really variable prediction. From the second plot it's clear that the omoschedasticity here is not respected and in general we have a really variable series to predict,for this reason this dynamic model is useless.
 
 \subsection{Active approach}
 Now we want to try to use our predictions to build up a financial strategy: we invest our money at time $t$  in order to replicate $Sp500$ index only if we think that tomorrow the index will grow, otherwise we capitalize our portfolio and we don't invest money at time $t$. Every day we repeat this procedure trying to guess when the market will go up, investing only if this is the case.  Of course, we must consider a variable fee ($0.2\%$) we need to pay to make an investment.  We can aggregate this tax
 to $y$, the daily log revenue, modifying its value $y\rightarrow y+log(1-0.002)$: in this way if the new $y$ is still positive we want to reinvest our money even though this means to pay the additional fee.
+
+To predict the $t+1$ index observation we tried different approches. Below we present an approach using non negative lasso and one using non negative lasso with binary response variable. We also tried to predict $y_{t+1}$ considering it a time series, but actually $y$ is too variable and estimates classify it as white noise, giving as responce only its mean.
 
 \subsubsection{}
   \begin{figure}[h!]

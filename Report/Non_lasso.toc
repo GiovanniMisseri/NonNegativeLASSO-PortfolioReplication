@@ -11,6 +11,6 @@
 \contentsline {subparagraph}{Non negative Elastic Net}{14}
 \contentsline {subparagraph}{Non negative OLS}{16}
 \contentsline {subsubsection}{\numberline {3.2.2}Dynamic models}{16}
-\contentsline {subsection}{\numberline {3.3}Active approach}{19}
-\contentsline {subsubsection}{\numberline {3.3.1}}{19}
-\contentsline {subsubsection}{\numberline {3.3.2}Logistic prediction}{19}
+\contentsline {subsection}{\numberline {3.3}Active approach}{20}
+\contentsline {subsubsection}{\numberline {3.3.1}}{20}
+\contentsline {subsubsection}{\numberline {3.3.2}Logistic prediction}{21}

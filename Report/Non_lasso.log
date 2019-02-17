@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.12.17)  17 FEB 2019 17:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.12.17)  17 FEB 2019 18:50
 entering extended mode
 **./Non_lasso.tex
 (Non_lasso.tex
@@ -517,47 +517,87 @@ Underfull \hbox (badness 10000) in paragraph at lines 284--286
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 289--291
+
+ []
+
+<./images/dynamic47.png, id=95, 621.07031pt x 338.76563pt>
+File: ./images/dynamic47.png Graphic file (type png)
+<use ./images/dynamic47.png>
+Package pdftex.def Info: ./images/dynamic47.png  used on input line 292.
+(pdftex.def)             Requested size: 372.64505pt x 203.26093pt.
+
+Overfull \hbox (42.64505pt too wide) in paragraph at lines 292--294
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 292--294
+
+ []
+
 [18 <./images/dynamic14.png>]
-<act_port.png, id=99, 258.9675pt x 321.2pt>
+<./images/kalmanprediction.png, id=100, 621.07031pt x 338.76563pt>
+File: ./images/kalmanprediction.png Graphic file (type png)
+<use ./images/kalmanprediction.png>
+Package pdftex.def Info: ./images/kalmanprediction.png  used on input line 296.
+
+(pdftex.def)             Requested size: 372.64505pt x 203.26093pt.
+
+Overfull \hbox (42.64505pt too wide) in paragraph at lines 296--298
+[][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 296--298
+
+ []
+
+[19 <./images/dynamic47.png> <./images/kalmanprediction.png>]
+<act_port.png, id=107, 258.9675pt x 321.2pt>
 File: act_port.png Graphic file (type png)
 <use act_port.png>
-Package pdftex.def Info: act_port.png  used on input line 307.
+Package pdftex.def Info: act_port.png  used on input line 310.
 (pdftex.def)             Requested size: 155.38168pt x 192.72148pt.
-<act_portfolio.png, id=100, 433.62pt x 289.08pt>
+<act_portfolio.png, id=108, 433.62pt x 289.08pt>
 File: act_portfolio.png Graphic file (type png)
 <use act_portfolio.png>
-Package pdftex.def Info: act_portfolio.png  used on input line 314.
+Package pdftex.def Info: act_portfolio.png  used on input line 317.
 (pdftex.def)             Requested size: 260.17401pt x 173.44933pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<act_port_log.png, id=101, 263.98625pt x 317.185pt>
+[20 <./act_port.png>]
+<act_port_log.png, id=113, 263.98625pt x 317.185pt>
 File: act_port_log.png Graphic file (type png)
 <use act_port_log.png>
-Package pdftex.def Info: act_port_log.png  used on input line 324.
+Package pdftex.def Info: act_port_log.png  used on input line 327.
 (pdftex.def)             Requested size: 158.39296pt x 190.31245pt.
-[19 <./act_port.png>]
-<act_portfolio_logit.png, id=107, 433.62pt x 289.08pt>
-File: act_portfolio_logit.png Graphic file (type png)
-<use act_portfolio_logit.png>
-Package pdftex.def Info: act_portfolio_logit.png  used on input line 331.
-(pdftex.def)             Requested size: 260.17401pt x 173.44933pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[20 <./act_portfolio.png> <./act_port_log.png>] [21 <./act_portfolio_logit.png>
+<act_portfolio_logit.png, id=114, 433.62pt x 289.08pt>
+File: act_portfolio_logit.png Graphic file (type png)
+<use act_portfolio_logit.png>
+Package pdftex.def Info: act_portfolio_logit.png  used on input line 334.
+(pdftex.def)             Requested size: 260.17401pt x 173.44933pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[21 <./act_portfolio.png>] [22 <./act_port_log.png> <./act_portfolio_logit.png>
 ] (Non_lasso.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 3019 strings out of 492970
- 46425 string characters out of 3123929
+ 3029 strings out of 492970
+ 46700 string characters out of 3123929
  106499 words of memory out of 3000000
- 6837 multiletter control sequences out of 15000+200000
+ 6845 multiletter control sequences out of 15000+200000
  40200 words of font info for 38 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,8n,32p,1040b,224s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -579,9 +619,9 @@ type1/public/lm/lmr12.pfb><C:/Users/luigimissri/AppData/Local/Programs/MiKTeX 2
 Programs/MiKTeX 2.9/fonts/type1/public/lm/lmr7.pfb><C:/Users/luigimissri/AppDat
 a/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Users/luigimis
 sri/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/lm/lmsy7.pfb>
-Output written on Non_lasso.pdf (21 pages, 757664 bytes).
+Output written on Non_lasso.pdf (22 pages, 779731 bytes).
 PDF statistics:
- 159 PDF objects out of 1000 (max. 8388607)
+ 166 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 96 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 106 words of extra memory for PDF output out of 10000 (max. 10000000)
 
