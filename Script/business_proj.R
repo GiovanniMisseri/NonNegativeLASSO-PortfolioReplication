@@ -468,7 +468,7 @@ x=dldat[,-1]
 x=as.matrix(x)
 y=dldat[,1]
 mod=cv.glmnet(x[1:250,] ,y[1:250],lower.limits=0 )
-m=coef(mod,s = 0.005)
+m=coef(mod,s = 0.001)
 
 index=m@i+1
 m@Dimnames[[1]][m@i+1]
@@ -481,10 +481,10 @@ mask=(m[,1]>0)
 
 num_reg=sum(mask)
 
-x=dldat[251:500,mask]
+x=dldat[1:808,mask]
 x=x[,c(2:num_reg)]
 x=as.matrix(x)
-y=(dldat[251:500,1])
+y=(dldat[1:808,1])
 
 num = length(y)
 
@@ -518,7 +518,7 @@ Linn = function ( para ) {
   }
   
   kf = Kfilter1(num , y , A, mu0 , Sigma0 , Phi ,Ups = ups,Gam = 0, cQ , cR,input)
-  return ((kf$ like )/100 + (0.01*sum(para[2:num_reg]))/100 )
+  return ((kf$ like ) )
 }
 
 
@@ -553,25 +553,17 @@ for (i in 1:num_reg){
 kf = Kfilter1(num , y , A, mu0 , Sigma0 , Phi ,Ups = ups,Gam = 0, cQ , cR,input)
 
 
-res=1:250
-for (i in 1:250){
+res=1:808
+for (i in 1:808){
   res[i]=A[,,i]%*%kf$xp[,,i]
   
 }
 
 
 
-tsplot(y[150:250])
-lines(res[150:250],col=2)
-
-
-
-
-t=0
-
-budget=1
-
-exp(res[t+1])*budget # ....
+tsplot(res[1:808],lwd=1,col=2,main="Kalman filter prediction",ylab = "")
+lines(y[1:808],col=1,lwd=2)
+legend("topleft",legend = c("Daily log-return","Kalman prediction"),col=c(1,2),lty=c(1,1),lwd=c(2,1))
 
 
 
@@ -579,9 +571,40 @@ exp(res[t+1])*budget # ....
 
 
 
+#Dynamic mod
+max(post)
+sum(rowSums(ts_beta)==0)
+post=ts_beta[rowSums(ts_beta)!=0,]
+tsplot(as.numeric(post[2,]),col=2,main="Beta Lasso time series", ylim=c(0,0.091),ylab = "")
+for (i in 3:558){
+  lines(as.numeric(post[i,]),col=i)
+}
+
+u=1:558
+for (i in 1:558){
+  u[i]=quantile(t(post[,i]),probs = 0.95)
+  
+}
+mean(u)
+0.05*216
 
 
 
+
+
+
+
+oo=exp(cumsum(y[251:808]))
+oo[808]
+tsplot(oo,ylim=c(0.8,1.38),lwd=2,col="blue",ylab="",main="Dynamic Portfolio - 47 assets")
+lines(exp(cumsum(res[251:808])),col="orange",lwd=2)
+legend( "topleft",legend = c("initial buget","Sp500 index","Dynamic portfolio","Ols portfolio"),col = c(1,"blue","orange","gray40"),lty = c(1,1,1,2),lwd=c(2,2,2,1))
+abline(h=1)
+
+
+
+
+#
 
 
 
