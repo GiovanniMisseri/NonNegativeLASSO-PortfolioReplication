@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.12.2)  17 FEB 2019 19:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.12.2)  17 FEB 2019 21:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -369,7 +369,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 204--206
  []
 
 [12 <./images/lassoplot.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 214--217
+Underfull \hbox (badness 10000) in paragraph at lines 213--215
 
  []
 
@@ -377,188 +377,188 @@ Underfull \hbox (badness 10000) in paragraph at lines 214--217
 File: ./images/tablasso.jpg Graphic file (type jpg)
 
 <use ./images/tablasso.jpg>
-Package pdftex.def Info: ./images/tablasso.jpg used on input line 218.
+Package pdftex.def Info: ./images/tablasso.jpg used on input line 216.
 (pdftex.def)             Requested size: 153.57335pt x 85.36871pt.
 
 <./images/lassoportfolio.png, id=71, 621.07031pt x 338.76563pt>
 File: ./images/lassoportfolio.png Graphic file (type png)
 
 <use ./images/lassoportfolio.png>
-Package pdftex.def Info: ./images/lassoportfolio.png used on input line 224.
+Package pdftex.def Info: ./images/lassoportfolio.png used on input line 222.
 (pdftex.def)             Requested size: 372.64505pt x 203.26093pt.
 
-Overfull \hbox (42.64505pt too wide) in paragraph at lines 224--226
+Overfull \hbox (42.64505pt too wide) in paragraph at lines 222--224
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 224--226
+Underfull \hbox (badness 10000) in paragraph at lines 222--224
 
  []
 
 [13 <./images/tablasso.jpg>] [14 <./images/lassoportfolio.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 256--258
+Underfull \hbox (badness 10000) in paragraph at lines 254--256
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 259--261
+Underfull \hbox (badness 10000) in paragraph at lines 257--259
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 262--264
+Underfull \hbox (badness 10000) in paragraph at lines 260--262
 
  []
 
-<./images/elasticportfolio.png, id=80, 621.07031pt x 338.76563pt>
+<./images/elasticportfolio.png, id=83, 621.07031pt x 338.76563pt>
 File: ./images/elasticportfolio.png Graphic file (type png)
 
 <use ./images/elasticportfolio.png>
-Package pdftex.def Info: ./images/elasticportfolio.png used on input line 265.
+Package pdftex.def Info: ./images/elasticportfolio.png used on input line 263.
 (pdftex.def)             Requested size: 372.64505pt x 203.26093pt.
 
-Overfull \hbox (42.64505pt too wide) in paragraph at lines 265--267
+Overfull \hbox (42.64505pt too wide) in paragraph at lines 263--265
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 265--267
+Underfull \hbox (badness 10000) in paragraph at lines 263--265
 
  []
 
 [15 <./images/elasticportfolio.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 273--275
+Underfull \hbox (badness 10000) in paragraph at lines 271--273
 
  []
 
-<./images/olsportfolio.png, id=85, 621.07031pt x 338.76563pt>
+<./images/olsportfolio.png, id=88, 621.07031pt x 338.76563pt>
 File: ./images/olsportfolio.png Graphic file (type png)
 
 <use ./images/olsportfolio.png>
-Package pdftex.def Info: ./images/olsportfolio.png used on input line 276.
+Package pdftex.def Info: ./images/olsportfolio.png used on input line 274.
 (pdftex.def)             Requested size: 372.64505pt x 203.26093pt.
 
-Overfull \hbox (42.64505pt too wide) in paragraph at lines 276--278
+Overfull \hbox (42.64505pt too wide) in paragraph at lines 274--276
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 276--278
+Underfull \hbox (badness 10000) in paragraph at lines 274--276
 
  []
 
 [16 <./images/olsportfolio.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 286--288
+Underfull \hbox (badness 10000) in paragraph at lines 284--286
 
  []
 
-<./images/betatime.png, id=90, 621.07031pt x 338.76563pt>
+<./images/betatime.png, id=93, 621.07031pt x 338.76563pt>
 File: ./images/betatime.png Graphic file (type png)
 
 <use ./images/betatime.png>
-Package pdftex.def Info: ./images/betatime.png used on input line 289.
+Package pdftex.def Info: ./images/betatime.png used on input line 287.
 (pdftex.def)             Requested size: 372.64505pt x 203.26093pt.
 
-Overfull \hbox (42.64505pt too wide) in paragraph at lines 289--291
+Overfull \hbox (42.64505pt too wide) in paragraph at lines 287--289
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 289--291
+Underfull \hbox (badness 10000) in paragraph at lines 287--289
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 296--298
+Underfull \hbox (badness 10000) in paragraph at lines 294--296
 
  []
 
 [17 <./images/betatime.png>]
-<./images/dynamic14.png, id=95, 621.07031pt x 338.76563pt>
+<./images/dynamic14.png, id=98, 621.07031pt x 338.76563pt>
 File: ./images/dynamic14.png Graphic file (type png)
 
 <use ./images/dynamic14.png>
-Package pdftex.def Info: ./images/dynamic14.png used on input line 299.
+Package pdftex.def Info: ./images/dynamic14.png used on input line 297.
 (pdftex.def)             Requested size: 372.64505pt x 203.26093pt.
 
-Overfull \hbox (42.64505pt too wide) in paragraph at lines 299--301
+Overfull \hbox (42.64505pt too wide) in paragraph at lines 297--299
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 299--301
+Underfull \hbox (badness 10000) in paragraph at lines 297--299
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 304--306
+Underfull \hbox (badness 10000) in paragraph at lines 302--304
 
  []
 
-<./images/dynamic47.png, id=96, 621.07031pt x 338.76563pt>
+<./images/dynamic47.png, id=99, 621.07031pt x 338.76563pt>
 File: ./images/dynamic47.png Graphic file (type png)
 
 <use ./images/dynamic47.png>
-Package pdftex.def Info: ./images/dynamic47.png used on input line 307.
+Package pdftex.def Info: ./images/dynamic47.png used on input line 305.
 (pdftex.def)             Requested size: 372.64505pt x 203.26093pt.
 
-Overfull \hbox (42.64505pt too wide) in paragraph at lines 307--309
+Overfull \hbox (42.64505pt too wide) in paragraph at lines 305--307
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 307--309
+Underfull \hbox (badness 10000) in paragraph at lines 305--307
 
  []
 
 [18 <./images/dynamic14.png>]
-<./images/kalmanprediction.png, id=101, 621.07031pt x 338.76563pt>
+<./images/kalmanprediction.png, id=104, 621.07031pt x 338.76563pt>
 File: ./images/kalmanprediction.png Graphic file (type png)
 
 <use ./images/kalmanprediction.png>
-Package pdftex.def Info: ./images/kalmanprediction.png used on input line 311.
+Package pdftex.def Info: ./images/kalmanprediction.png used on input line 309.
 (pdftex.def)             Requested size: 372.64505pt x 203.26093pt.
 
-Overfull \hbox (42.64505pt too wide) in paragraph at lines 311--313
+Overfull \hbox (42.64505pt too wide) in paragraph at lines 309--311
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 311--313
+Underfull \hbox (badness 10000) in paragraph at lines 309--311
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 317--320
+Underfull \hbox (badness 10000) in paragraph at lines 315--318
 
  []
 
 [19 <./images/dynamic47.png> <./images/kalmanprediction.png>] [20]
-<act_port.png, id=111, 258.9675pt x 321.2pt>
+<act_port.png, id=114, 258.9675pt x 321.2pt>
 File: act_port.png Graphic file (type png)
  <use act_port.png>
-Package pdftex.def Info: act_port.png used on input line 333.
+Package pdftex.def Info: act_port.png used on input line 331.
 (pdftex.def)             Requested size: 155.38168pt x 192.72148pt.
 
-<act_portfolio.png, id=112, 433.62pt x 289.08pt>
+<act_portfolio.png, id=115, 433.62pt x 289.08pt>
 File: act_portfolio.png Graphic file (type png)
  <use act_portfolio.png>
-Package pdftex.def Info: act_portfolio.png used on input line 340.
+Package pdftex.def Info: act_portfolio.png used on input line 338.
 (pdftex.def)             Requested size: 260.17401pt x 173.44933pt.
 
 [21 <./act_port.png> <./act_portfolio.png>]
-<act_port_log.png, id=118, 263.98625pt x 317.185pt>
+<act_port_log.png, id=121, 263.98625pt x 317.185pt>
 File: act_port_log.png Graphic file (type png)
  <use act_port_log.png>
-Package pdftex.def Info: act_port_log.png used on input line 352.
+Package pdftex.def Info: act_port_log.png used on input line 350.
 (pdftex.def)             Requested size: 145.19287pt x 174.45227pt.
 
-<act_portfolio_logit.png, id=119, 433.62pt x 289.08pt>
+<act_portfolio_logit.png, id=122, 433.62pt x 289.08pt>
 File: act_portfolio_logit.png Graphic file (type png)
 
 <use act_portfolio_logit.png>
-Package pdftex.def Info: act_portfolio_logit.png used on input line 359.
+Package pdftex.def Info: act_portfolio_logit.png used on input line 357.
 (pdftex.def)             Requested size: 260.17401pt x 173.44933pt.
  [22 <./act_port_log.png> <./act_portfolio_logit.png>] [23] (./Non_lasso.aux)
 
@@ -566,15 +566,15 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 2932 strings out of 492995
- 44389 string characters out of 6132704
+ 2934 strings out of 492995
+ 44411 string characters out of 6132704
  103938 words of memory out of 5000000
- 6426 multiletter control sequences out of 15000+600000
- 40200 words of font info for 38 fonts, out of 8000000 for 9000
+ 6427 multiletter control sequences out of 15000+600000
+ 44420 words of font info for 39 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  39i,8n,32p,1037b,226s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/lo
-cal/texlive/2017/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/20
+{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/
+texlive/2017/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/20
 17/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2017/texmf-d
 ist/fonts/enc/dvips/lm/lm-mathit.enc}</usr/local/texlive/2017/texmf-dist/fonts/
 type1/public/lm/lmbx10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/publ
@@ -585,12 +585,15 @@ xlive/2017/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2017/
 texmf-dist/fonts/type1/public/lm/lmr12.pfb></usr/local/texlive/2017/texmf-dist/
 fonts/type1/public/lm/lmr17.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1
 /public/lm/lmr5.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/l
-mr7.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></
-usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmsy7.pfb>
-Output written on Non_lasso.pdf (23 pages, 838494 bytes).
+mr6.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmr7.pfb></us
+r/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texl
+ive/2017/texmf-dist/fonts/type1/public/lm/lmri8.pfb></usr/local/texlive/2017/te
+xmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2017/texmf-dist/f
+onts/type1/public/lm/lmsy7.pfb>
+Output written on Non_lasso.pdf (23 pages, 895242 bytes).
 PDF statistics:
- 171 PDF objects out of 1000 (max. 8388607)
- 93 compressed objects within 1 object stream
+ 184 PDF objects out of 1000 (max. 8388607)
+ 102 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  106 words of extra memory for PDF output out of 10000 (max. 10000000)
 
