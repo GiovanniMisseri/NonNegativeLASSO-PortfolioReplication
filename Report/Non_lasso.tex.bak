@@ -377,7 +377,7 @@ Anyway, in general we would not suggest an active approach. High variability of 
 This approach is much less variable and our results support the evidence underlined quite often in the literature: passive approach seems to bring better results if compared with active approach. 
 \\
 
-Again is important to say that this wants to be an example of how one can deal with a portfolio replication problem, and with a different index one would have obtained different results. So it's important to say that what does not allow us to perform well using active approach is that our model for predicting the one-step ahead index return. With a better model, active approach, would be able to outperform passive approach. For sure, then, future work could be done in this direction.
+Again is important to say that this wants to be an example of how one can deal with a portfolio replication problem, and with a different index one would have obtained different results. So it is important to say that what does not allow us to perform well using active approach is that our model for predicting the one-step ahead index return is not accurate. With a better model, active approach, would be able to outperform passive approach. For sure, then, future work could be done in this direction.
 
 
 
