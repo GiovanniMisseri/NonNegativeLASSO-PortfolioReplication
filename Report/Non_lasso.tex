@@ -29,17 +29,18 @@ Business Economics and Financial Data}
 \newpage
 \section{Introduction}
 
-Portfolio management has always been one of the most used way investors start approaching to financial investments. An important task in finance is indeed optimizing the revenue with respect to the risk of investing in a portfolio.
+Portfolio management has always been one of the most common ways for investors to start approaching financial investments. An important task in finance is indeed optimizing the revenue with respect to the risk of investing in a portfolio.
 
 Markowitz in the '50, stated that single minded pursuit of high returns results in a poor strategy and rational investors need to balance their desire for high returns with low risk. So investing in a portfolio seems reasonable, indeed it diversify our investment and if we are able to spot profitable companies on which invest, we are guaranteed good revenue taking relatively low risk.
 \\
 
 There are mainly two strategies in portfolio management, active and passive managements. Active management tries to exploit the fluctuations of the market to gain as much as possible. On the other hand, passive management, tries to mimic the performance of an index. As one can easily notice, with active approach it's possible to loose great amount of money even investing on, on average, growing companies. On the other hand if we are able to well mimic a, on average, growing index, with passive approach we are guaranteed positive revenue.
 
-Empirically is often the case that passive approach outperforms active approach, also due to the transaction costs. In this work we will propose two different solutions to pursue respectively the passive and the active approach.
+Empirically in many cases passive approach outperforms active approach, also due to the transaction costs. In this work we will propose two different solutions to pursue respectively the passive and the active approach.
 
 \newpage
 \section{Shrinkage Methods}
+
 
 If we have a feature or some measurements of an interesting phenomenon, is often the case that, given some related variables, we try to explain the phenomenon as a function of the related variables. The use of linear model, in case of linear relation between phenomenon and variables, is a good choice for two reasons: it gives good prediction and on the other hand it's highly interpretable. 
 
@@ -48,15 +49,14 @@ In general the more correlated variables we have, the "better" the model will be
 \[
 \min_{\beta_0 , \beta} \frac{1}{N} \sum_{i=1}^N (y_i-\beta_0 - \sum_{j=1}^p x_{ij}\beta_j)^2 + \lambda\sum_{j=1}^p |\beta_j |^q 
 \]
+where $|\beta|^p$ is the $p$-norm of $\beta$.
 
-Where $|\beta|^p$ is the $p$-norm of $\beta$.
-\\
 
 If in the regularized minimization problem we choose norm-two we obtain the ridge regression, if we choose the norm-one we obtain LASSO regression. 
 
 
 It's easy to prove that shrinkage methods also solve an other type of problem related to ordinary least square. With OLS indeed the solution of the minimization problem is $ \beta_{ols}=(X^TX)^{-1}X^Ty$, decomposing $X$ through SVD, $X=V\Sigma U^T$, we get $\beta_{ols}=U\Sigma^{-1}V^Ty$. From this we can easily see that if $\Sigma$ is not invertible $\beta_{ols}$ could not be found.
-\\
+
 
 Shrinkage methods deal with this problem. Ridge regression ends up giving $\beta_{ridge}=U(\Sigma^2+\lambda I)^{-1} \Sigma V^T y$. Lasso regression's beta cannot be written in an explicit form, but the non-invertibility problem is solved due to the fact that, fixed $\lambda$, at the optimum, some beta will be equal to zero. Intuitively this is due to the feasible solutions space shape; indeed LASSO regression can be written as the following minimization problem.
 \begin{equation}
@@ -73,27 +73,26 @@ Fig. 1. Feasible solutions space shape Lasso, Ridge constrain
 
 \subsection{LASSO and Portfolio Replication}
 
-A replicating portfolio for a given asset or series of cash flows is a portfolio of assets with the same properties. So the principal problem of building a good replicating portfolio for a certain financial aggregate index is finding the right components of the index, the one able to represent the index itself. 
+A replicating portfolio for a given asset or series of cash flows is a portfolio of assets with the same properties. So the principal problem of building a good replicating portfolio for a certain financial aggregate index is finding the right components of the index, the ones able to represent the index itself. 
 
-With the problem posed like that, the link between lasso regression and portfolio replication it's evident. Indeed one interesting properties of lasso regression is the variable selection consistency, so using lasso regression we are guaranteed, under certain condition, that it will select an optimal subset of variables in order to explain our dependent variable. It's clear now that lasso could help on the selection of the subset of time series that will be part of the portfolio; so we will select a subset of an index' components  able to explain the index itself.
-\\
+With the problem presented like this, the link between lasso regression and portfolio replication it's evident. Indeed one interesting properties of lasso regression is the variable selection consistency, so using lasso regression we are guaranteed, under certain condition, that it will select an optimal subset of variables in order to explain our dependent variable. It's clear now that lasso could help on the selection of the subset of time series that will be part of the portfolio; so we will select a subset of an index' components  able to explain the index itself.
 
-Here comes one problem, how to use lasso, a cross-sectional regression method, on a dynamic dataset? We will use a moving window approach, so we will assume that the data inside a window of fixed length are time invariant, and we compute lasso on that.
 
-Another problem is the interpretation of the resulting model. Ones we find the solution to the lasso minimization problem, we have the beta related to all the variables, in our case the components of the index. Some beta will be equal to zero, so they will be excluded by our portfolio, for all the other beta a nice interpretation is available. 
+Here comes a problem, how to use lasso, a cross-sectional regression method, on a dynamic dataset? We will use a moving window approach, so we will assume that the data inside a window of fixed length are time invariant, and we compute lasso on that.
+
+Another problem is the interpretation of the resulting model. Once we find the solution to the lasso minimization problem, we have the beta related to all the variables, in our case the components of the index. Some beta will be equal to zero, so they will be excluded by our portfolio, for all the other beta a nice interpretation is available. 
 
 If we carefully think to lasso as it has been defined in $(1)$, we approximate an index, the used one will be $Sp500$, as a function of some of it's components, conditioning to the fact that the sum of the associated beta is less than a given $t$. Practically we will work on the daily log-returns, and so our response and regressors will be all daily log-return; said that it's easy to see that $t$ can be seen as the initial budget and each beta is the volume of the "suggested" investment in a certain asset to do in order to replicate the index performances. Later on we will exploit this fact to run simulations using the different proposed methods.
 
 For an active approach everything works fine, a positive beta will be an investment and a negative beta will be a short sell. On the other hand, for passive approach, it could be forbidden or in general doesn't make much sense to use short sell. For this reason to our estimates we need to add the constrain of non-negativity.
 
-Considering that also elastic net regression has the consistency variable selection, we will try to select the assets both with lasso and elastic net regression. Some comparison will be done on that.
+Considering that also elastic net regression performs the consistency variable selection, we will try to select the assets both with lasso and elastic net regression. Some comparison will be done on that.
 
 \subsection{Dataset Analysis}
 \begin{figure}[h!!!]
   \centering
-  \includegraphics[scale=0.6]{daily_var.png}
-  
-\begin{center}
+  \includegraphics[scale=0.45]{daily_var.png}
+  \begin{center}
 \begin{small}
 Fig. 2. Daily values of $Sp500$ index
 \end{small}
@@ -122,7 +121,6 @@ Unfortunately, this is not very useful. At time $t$ we are interested in predict
 \begin{equation}
  \min_{\beta} \sum_{t=1}^T ( y_{t+h} -\beta_0 -\sum_{j=1}^p x_{tj} \beta_j)^2 ~~subject~to~\sum_{j=1}^p |\beta_j| \leq C.
 \end{equation}
-
 As mentioned before, due to the high variance of the process this naive approach is quite inefficient and this will be a problem in the following sections where we will try to build up a financial strategy based on these predictions.
 
 \iffalse
@@ -149,24 +147,22 @@ As mentioned before, due to the high variance of the process this naive approach
 Fig. 4.Accuracy in predicting $y_{t+h}$ given $x_t$
 \end{small}
 \end{center}
-
   \label{err_step}
 \end{figure}
 
 \begin{figure}[h!!!]
   \centering
-  \includegraphics[scale=0.55]{pred_step1.png}     
+  \includegraphics[scale=0.5]{pred_step1.png}     
 \begin{center}
 \begin{small}
 Fig. 5. One-step ahead prediction
 \end{small}
 \end{center}
-
   \label{err_step}
 \end{figure}
 
 
-
+\newpage
 
 \subsection{Parameter estimation}
 As we said our principal aim is to replicate the $Sp500$ with a relatively low number of assets. To select the right one we could use, as explained in previous paragraphs, lasso or elastic net regression; now we have to deal with the parameter estimation.
@@ -203,7 +199,7 @@ We want to understand how rapidly these $\beta$-parameters change, in particular
   \includegraphics[scale=0.6]{turnover.png}
   \begin{center}
 \begin{small}
-Fig. 7. Relevance of the added/removed variables inside the model
+Fig. 7. Beta-coefficients histogram for 250-length moving window
 \end{small}
 \end{center}
   \label{turnover}
@@ -221,7 +217,7 @@ We will work with $Sp500$, below we report the $Sp500$ time series.
 \includegraphics[scale=0.75]{sp500}
 \begin{center}
 \begin{small}
-Fig. 8. $Sp500$ index over the analyzed period
+Fig. 8. $Sp500$ index over the analysed period
 \\
 
 \end{small}
@@ -314,7 +310,7 @@ Fig. 12. $Sp500$ index relative value time series against portfolio relative val
 So it's clear that the two results are absolutely comparable. In the case reported above we used for elastic net $\lambda=0.0025$ and $\alpha=0.5$, but as previously said changing the two parameter the result doesn't change.
 
 \subparagraph{Non negative OLS}
-In this last simulation we will estimate the model's parameters using ols estimate on the lasso-selected assets. Different paper reported that empirically seems to work better then simply using lasso estimate. 
+In this last simulation we will estimate the model's parameters using OLS estimate on the lasso-selected assets. Different paper reported that empirically seems to work better then simply using lasso estimate. 
 
 Below the plot with the simulation results.
 \\
@@ -329,14 +325,14 @@ Fig. 13. $Sp500$ index relative value time series against portfolio relative val
 \end{center}
 
 
-Actually also in our case OLS approximate the original index much better that the other two approaches. So at the end of our simulations we would say that at the moment the better strategy to build a portfolio is to use lasso an invest on the selected assets proportionally to the ols estimate of the corresponding $\beta$. 
+Actually also in our case OLS approximate the original index much better that the other two approaches. So at the end of our simulations we would say that at the moment the better strategy to build a portfolio is to use lasso an invest on the selected assets proportionally to the OLS estimate of the corresponding $\beta$. 
 With this approach at the end we gain less that using the others, but this can't be proved to be a general characteristic. Here it happen that lasso and elastic net suggest to invest more on the assets that in future will grow more that the average, further work on investigating if this behaviour repeats also with other indexes would be interesting.
 
 \subsubsection{Dynamic models}
 
 Simulations in the previous section underline that as the time goes our prediction get worth. This is due to the fact that our investment is static while real $\beta$ are dynamic, indeed as the time pass one important asset in the first window can become irrelevant after some lags. Due to this fact it's clear that to better fit the $Sp500$ index one would need update the model.
 
-To show how variable the ideal portfolio is in time we mooved the 250 observation long window trough the dataset, estimating each time a lasso model. What follows is the plot containing the time series of all the asset parameters that are at least ones bigger than zero.
+To show how variable the ideal portfolio is in time we moved the 250 observation long window trough the dataset, estimating each time a lasso model. What follows is the plot containing the time series of all the asset parameters that are at least ones bigger than zero.
 \\
 
 \includegraphics[scale=0.55]{betatime}
@@ -351,7 +347,7 @@ Fig. 14. Beta-lasso time series
 
 This plot seems to be confusing, but actually this is really due to the variability of the beta over the time. One guess we can take from this plot is that even if on average we have 51 assets included in the portfolio, there are only few of them with high beta score, and also there are only few assets which strongly influence the portfolio over the whole analysed time period. Data proves that the intuition was right, indeed we have on average only 11 assets with related beta bigger then 0.023. 
 
-Actually the time variance importance of the assets resulted to be quite relevant. Indeed we built a dynamic regression model using the Kalman filter and we found that also with a dynamic model with only 14 assets, the performances where similar to the lasso approach, which considers 47 assets. This underlign the importance of time in this framework.
+Actually the time variance importance of the assets resulted to be quite relevant. Indeed we built a dynamic regression model using the Kalman filter and we found that also with a dynamic model with only 14 assets, the performances where similar to the lasso approach, which considers 47 assets. This underlines the importance of time in this framework.
 
 Below the plot of the index and our portfolio value over time.
 \\
@@ -366,7 +362,7 @@ Fig. 15. $Sp500$ index relative value time series against dynamic portfolio rela
 \end{center}
 
 
-In general we also built a dynamic model with the same 47 assets considered by the lasso model. This sounds to be perfect, theoretically we should get a perfect fit and should be the ideal solution to portfolio replication problem. The problem with this model is actually the same characteristic that makes it  good at prediction: the frequency of update. Indeed every time one update the model, in real life, should pay a fee due to the new investment, and the daily update of this approach make it unfeasible. Also another reason to doubt this result is its robustness to rapid change in $Sp500$, indeed the Kalman filter we used assumes gaussianity and homoschedasticity, but our objective series is etheroschedastic.  
+In general we also built a dynamic model with the same 47 assets considered by the lasso model. This sounds to be perfect, theoretically we should get a perfect fit and should be the ideal solution to portfolio replication problem. The problem with this model is actually the same characteristic that makes it good at predicting: the frequency of update. Indeed every time one update the model, in real life, should pay a fee due to the new investment, and the daily update of this approach makes it unfeasible. Also another reason to doubt this result is its robustness to rapid change in $Sp500$, indeed the Kalman filter we used assumes gaussianity and homoschedasticity, but our objective series is etheroschedastic.  
 
 Below the plot of the Kalman filter results with respect to OLS prediction and $Sp500$.
 \\
@@ -462,12 +458,11 @@ Fig. 21. Portfolio's evolution compared with $Sp500$ index
 Looking at the data we can see that our problem here is that we are not able to predict efficiently the value of $Sp500$ index and because of that we end up investing in the wrong moments.
 
 
-\newpage
 
 \section{Conclusions}
 
 At the end of this work we feel to have a deep understanding of the analysed problem and its field. The work presented here is just a gentle introduction to portfolio management methods, nevertheless we touched a wide range of problems and tried to propose different techniques to deal with them.
-\\
+
 
 The principal aim of this work was to manage and give a possible solution to portfolio replication problem. We  proposed different methods based on active or passive approach.
 
@@ -475,7 +470,7 @@ From our specific analysis if an investor would like to follow an active approac
 
 Anyway, in general we would not suggest an active approach. High variability of the index often brings to mispredictions and consequently to losses, considering also that lots of money is spent in taxes while frequently rebuilding our portfolio. Indeed we would go for passive approach. In particular the best available option seems to be a portfolio in which one invest proportionally to OLS beta related to lasso-selected assets.
 This approach is much less variable and our results support the evidence underlined quite often in the literature: passive approach seems to bring better results if compared with active approach. 
-\\
+
 
 Again is important to say that this wants to be an example of how one can deal with a portfolio replication problem, and with a different index one would have obtained different results. So it is important to say that what does not allow us to perform well using active approach is that our model for predicting the one-step ahead index return is not accurate. With a better model, active approach, would be able to outperform passive approach. For sure, then, future work could be done in this direction.
 
