@@ -2,7 +2,7 @@
 \contentsline {section}{\numberline {2}Shrinkage Methods}{3}
 \contentsline {subsection}{\numberline {2.1}LASSO and Portfolio Replication}{4}
 \contentsline {subsection}{\numberline {2.2}Dataset Analysis}{5}
-\contentsline {subsection}{\numberline {2.3}Parameter estimation}{8}
+\contentsline {subsection}{\numberline {2.3}Parameter estimation}{7}
 \contentsline {section}{\numberline {3}Portfolio replication}{9}
 \contentsline {subsection}{\numberline {3.1}Beta}{9}
 \contentsline {subsection}{\numberline {3.2}Passive approach}{10}
@@ -14,4 +14,4 @@
 \contentsline {subsection}{\numberline {3.3}Active approach}{20}
 \contentsline {subsubsection}{\numberline {3.3.1}One-step ahead prediction with shifted windows}{20}
 \contentsline {subsubsection}{\numberline {3.3.2}Logistic regression}{22}
-\contentsline {section}{\numberline {4}Conclusions}{23}
+\contentsline {section}{\numberline {4}Conclusions}{24}

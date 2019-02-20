@@ -15,11 +15,9 @@ require(nnls)
 library(readr)
 require(astsa)
 require(tictoc)
-
-
-
-
-
+date <- read_csv("GitHub/NonNegativeLASSO-PortfolioReplication/Data/date.csv")
+date=(date[,-1])
+date=c(date[,1])
 
 
 
@@ -95,7 +93,9 @@ mod=nnls(cbind(rep(1,250),x[1:250,mask]),y[1:250])#non negative ols
 
 #plot the real time series agains fitted OLS and fitted lasso
 
-tsplot(y[200:250],lwd=1)
+tsplot(y[200:250],lwd=1,axes=F)
+axis(2)
+axis(1,at=1:51,labels = date$x[200:250])
 lines(mod$fitted[200:250],col=2,lwd=1)
 pred_ols=mod$fitted[200:250]
 
@@ -165,6 +165,84 @@ lines(exp(cumsum(pred_lasso[251:808])),col="gray40",lty=2)
 
 legend( "topleft",legend = c("initial buget","Sp500 index","OLS portfolio","Lasso portfolio"),col = c(1,"blue","orange","gray40"),lty = c(1,1,1,2),lwd=c(2,2,2,1))
 abline(h=1)
+
+
+
+# What if we update our investment after some days?
+
+update_len=400 #change the length of the update time to see how the portfolio value changes
+
+oo=exp(cumsum(y[251:808])) # correspond to percentage value of the sp500 index with respect time 250
+oo[558] # final sp500 value (111% initial value)
+
+tsplot(oo,ylim=c(0.85,1.18),lwd=2,col="blue",main = "OLS Portfolio-updating portfolio")
+
+
+u=seq(1,558,update_len)
+i=1
+budget=1
+for (i in u){
+  mask=ts_beta[,i]>0
+  mask=mask[-1]
+  mod=nnls(cbind(rep(1,250),x[i:(i+249),mask]),y[i:(i+249)]) #Non negative ols on the lasso-selected assets
+  co=mod$x
+  if (i!=u[length(u)]){
+    pred_ols=cbind(rep(1,length((i+249):(i+249+update_len))),x[(i+249):(i+249+update_len),mask])%*%co
+    val=(exp(cumsum(pred_ols))*budget*(1-0.002)) # notice that here we insert also the fees to pay and we reinvest only what we gained untill that time
+    lines(y=val,x=c((i):(i+update_len)),col=i+1,lty=1,lwd=2)
+    budget=val[length(val)]
+  }
+  else{
+    pred_ols=cbind(rep(1,length((i+249):(807))),x[(i+249):(807),mask])%*%co
+    val=(exp(cumsum(pred_ols))*budget*(1-0.002))
+    
+    lines(y=val,x=c((i):(558)),col=i,lty=1,lwd=2)
+  }
+  
+  
+}
+
+
+
+
+
+
+mask=ts_beta[,1]>0
+mask=mask[-1]
+x=as.matrix(x)
+
+mod=nnls(cbind(rep(1,250),x[1:250,mask]),y[1:250]) #Non negative ols on the lasso-selected assets
+
+co=as.matrix(ts_beta[c(TRUE,mask),1])
+pred_lasso=cbind(rep(1,length(1:808)),x[1:808,mask])%*%co # lasso prediction for the whole period
+
+
+oo=exp(cumsum(y[251:808])) # correspond to percentage value of the sp500 index with respect time 250
+oo[558] # final sp500 value (111% initial value)
+
+tsplot(oo,ylim=c(0.88,1.192),lwd=2,col="blue",main = "OLS Portfolio")
+lines(exp(cumsum(pred_lasso[251:808])),col="gray40",lty=2)
+
+
+co=mod$x
+pred_ols=cbind(rep(1,length(1:808)),x[1:808,mask])%*%co
+lines(exp(cumsum(pred_ols[251:808])),col="orange",lty=1,lwd=2)
+
+
+lines(exp(cumsum(pred_lasso[251:808])),col="gray40",lty=2)
+
+legend( "topleft",legend = c("initial buget","Sp500 index","OLS portfolio","Lasso portfolio"),col = c(1,"blue","orange","gray40"),lty = c(1,1,1,2),lwd=c(2,2,2,1))
+abline(h=1)
+
+
+
+
+
+
+
+
+
+
 
 
 

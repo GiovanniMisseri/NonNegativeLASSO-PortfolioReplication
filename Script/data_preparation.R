@@ -14,10 +14,10 @@ colnames(tot)=names[1,]
 
 
 dat=dat_tot[10700:11508,c(-1,-2)]
-
+date=tot$Date[10701:11508]
 lodat=log(dat)
 dldat=lodat[2:809,]-lodat[1:808,]
-
+#write.csv(date,"date.csv")
 #write.csv(dldat,"dldat.csv")
 
 u=1:506
