@@ -14,4 +14,4 @@
 \contentsline {subsection}{\numberline {3.3}Active approach}{20}
 \contentsline {subsubsection}{\numberline {3.3.1}One-step ahead prediction with shifted windows}{20}
 \contentsline {subsubsection}{\numberline {3.3.2}Logistic regression}{22}
-\contentsline {section}{\numberline {4}Conclusions}{24}
+\contentsline {section}{\numberline {4}Conclusions}{23}

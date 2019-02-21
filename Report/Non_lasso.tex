@@ -267,7 +267,7 @@ Doing like that and calculating the relative value of the portfolio after 558 da
 \includegraphics[scale=0.75]{tablasso}
 \begin{center}
 \begin{small}
-Fig. 10. Table with Lasso statistics varing lambda
+Fig. 10. Table with Lasso statistics varying lambda
 \\
 
 \end{small}
@@ -462,10 +462,8 @@ Fig. 21. Portfolio's evolution compared with $Sp500$ index
 \end{center}
   \label{portfolio_graph_logit}
 
-Looking at the data we can see that our problem here is that we are not able to predict efficiently the value of $Sp500$ index and because of that we end up investing in the wrong moments.
+Looking at the data we can see that our problem here is that we are not able to predict efficiently the value of $Sp500$ index and because of that we end up investing in the wrong moments (Precision=0.35, Recall=0.19, Accuracy=0.58).
 
-
-\newpage
 
 \section{Conclusions}
 
@@ -478,7 +476,6 @@ From our specific analysis if an investor would like to follow an active approac
 
 Anyway, in general we would not suggest an active approach. High variability of the index often brings to mispredictions and consequently to losses, considering also that lots of money is spent in taxes while frequently rebuilding our portfolio. Indeed we would go for passive approach. In particular the best available option seems to be a portfolio in which one invest proportionally to OLS beta related to lasso-selected assets.
 This approach is much less variable and our results support the evidence underlined quite often in the literature: passive approach seems to bring better results if compared with active approach. 
-\\
 
 Again is important to say that this wants to be an example of how one can deal with a portfolio replication problem, and with a different index one would have obtained different results. So it is important to say that what does not allow us to perform well using active approach is that our model for predicting the one-step ahead index return is not accurate. With a better model, active approach, would be able to outperform passive approach. For sure, then, future work could be done in this direction.
 
